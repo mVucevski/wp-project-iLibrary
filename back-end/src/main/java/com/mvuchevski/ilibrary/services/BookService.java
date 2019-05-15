@@ -62,4 +62,26 @@ public class BookService {
 
         bookRepository.deleteById(id);
     }
+
+    public Book updateBookByISBN(Book updatedBook, String isbn){
+
+        Book book = bookRepository.findByIsbn(isbn);
+
+        if(book==null){
+            System.out.println("Book isbn doesnt exist");
+        }else{
+            updatedBook.setId(book.getId());
+            if(updatedBook.getTitle() == null){
+                updatedBook.setTitle(book.getTitle());
+            }
+            if(updatedBook.getAuthorName() == null){
+                updatedBook.setAuthorName(book.getAuthorName());
+            }
+            if(updatedBook.getIsbn() == null){
+                updatedBook.setIsbn(book.getIsbn());
+            }
+        }
+
+        return bookRepository.save(updatedBook);
+    }
 }

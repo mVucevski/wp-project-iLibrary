@@ -2,6 +2,7 @@ package com.mvuchevski.ilibrary.web;
 
 import com.mvuchevski.ilibrary.models.Book;
 import com.mvuchevski.ilibrary.services.BookService;
+import com.mvuchevski.ilibrary.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,14 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewBook(@Valid @RequestBody Book book, BindingResult result){
-        //Error handling
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
+        if(errorMap != null) return errorMap;
 
         Book newBook = bookService.saveOrUpdateBook(book);
         return new ResponseEntity<Book>(newBook, HttpStatus.CREATED);
@@ -35,7 +41,7 @@ public class BookController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getBookByISBN(@PathVariable Long id){
+    public ResponseEntity<?> getBookById(@PathVariable Long id){
 
         Book book = bookService.findBookById(id);
 
@@ -54,6 +60,18 @@ public class BookController {
         bookService.deleteBookById(id);
 
         return new ResponseEntity<String>("Book with ID: "+id+" was deleted",HttpStatus.OK);
+    }
+
+    @PatchMapping("/{isbn}")
+    public ResponseEntity<?> updateBook(@RequestBody Book book, BindingResult result,
+                                        @PathVariable String isbn){
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
+        if(errorMap != null) return errorMap;
+
+        Book updateBook = bookService.updateBookByISBN(book, isbn);
+
+        return new ResponseEntity<Book>(updateBook,HttpStatus.OK);
     }
 
     @GetMapping("/all")
