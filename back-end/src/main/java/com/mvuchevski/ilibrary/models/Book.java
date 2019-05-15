@@ -33,7 +33,7 @@ public class Book {
     private String coverUrl;
 
     @NotBlank(message = "ISBN is required")
-    @Column(name="isbn", unique = true)
+    @Column(unique = true, updatable = false)
     @Size(min=10, max=13, message = "Please use valid ISBN")
     private String isbn;
 

@@ -1,5 +1,7 @@
 package com.mvuchevski.ilibrary.services;
 
+import com.mvuchevski.ilibrary.exceptions.BookIsbnException;
+import com.mvuchevski.ilibrary.exceptions.BookNotFoundException;
 import com.mvuchevski.ilibrary.models.Book;
 import com.mvuchevski.ilibrary.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +15,26 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    //To-Do: Patch it
     public Book saveOrUpdateBook(Book book){
+
         //Exception handling
-        return bookRepository.save(book);
+        if(book.getId() != null){
+            Book existingBook = findBookByISBN(book.getIsbn());
+        }
+
+        try{
+            return bookRepository.save(book);
+        }catch(Exception ex){
+            throw new BookIsbnException("Book ISBN: " + book.getIsbn() + " already exists.");
+        }
+
     }
 
     public Book findBookByISBN(String isbn){
         Book book = bookRepository.findByIsbn(isbn);
 
-        if(book==null){
-            //throw exception
+        if(book == null){
+            throw new BookIsbnException("Book with ISBN: " + isbn + " doesn't exist in the database.");
         }
 
         return book;
@@ -33,7 +44,7 @@ public class BookService {
         Optional<Book> book = bookRepository.findById(id);
 
         if(!book.isPresent()){
-            //throw exception
+            throw new BookNotFoundException("Book with Id: " + id + " doesn't exist.");
         }
 
         return book.get();
@@ -46,8 +57,8 @@ public class BookService {
     public void deleteBookByISBN(String isbn){
         Book book = bookRepository.findByIsbn(isbn);
 
-        if(book==null){
-            //throw exception
+        if(book == null){
+            throw new BookIsbnException("Book with ISBN: " + isbn + " doesn't exist.");
         }
 
         bookRepository.delete(book);
@@ -57,7 +68,7 @@ public class BookService {
         Optional<Book> book = bookRepository.findById(id);
 
         if(!book.isPresent()){
-            //throw exception
+            throw new BookNotFoundException("Book with Id: " + id + " doesn't exist.");
         }
 
         bookRepository.deleteById(id);
@@ -68,7 +79,7 @@ public class BookService {
         Book book = bookRepository.findByIsbn(isbn);
 
         if(book==null){
-            System.out.println("Book isbn doesnt exist");
+            throw new BookNotFoundException("Book with Id: " + updatedBook.getId() + " doesn't exist.");
         }else{
             updatedBook.setId(book.getId());
             if(updatedBook.getTitle() == null){
