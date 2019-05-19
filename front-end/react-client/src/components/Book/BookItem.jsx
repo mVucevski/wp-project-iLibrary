@@ -1,20 +1,22 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class BookItem extends Component {
   render() {
+    const { book } = this.props;
     return (
       <div className="col-lg-2 col-md-4 mb-4 d-flex align-items-stretch">
         <div className="card h-100">
-          <a href="#" style={{ textDecoration: "none" }} className="cards-a">
+          <Link to="/" style={{ textDecoration: "none" }} className="cards-a">
             <div className="card add-pointer">
               <img
                 className="card-img-top card-img"
-                src={require("../../assets/img/startWhy.jpg")}
+                src={book.coverUrl}
                 alt=""
               />
               <div className="card-body h-100">
-                <div className="card-title card-Title">Start with Why</div>
-                <div className="card-text card-Author">Avtor Avtorski</div>
+                <div className="card-title card-Title">{book.title}</div>
+                <div className="card-text card-Author">{book.authorName}</div>
                 <div className="star-ratings-sprite">
                   <span
                     style={{ width: "70%" }}
@@ -25,7 +27,7 @@ class BookItem extends Component {
                 <div className="card-text card-price">$15</div>
               </div>
             </div>
-          </a>
+          </Link>
           <div className="card-footer">
             {/*
             <button className="btn btn-danger btn-block api-remove-from-cart">
@@ -34,7 +36,7 @@ class BookItem extends Component {
             */}
 
             <button className="btn btn-success btn-block api-add-to-cart">
-              Add to Cart
+              Save
             </button>
           </div>
         </div>

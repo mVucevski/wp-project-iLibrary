@@ -20,7 +20,7 @@ class Header extends Component {
               <div className="col-md-2">
                 <Link to="/" style={{ textDecoration: "none" }}>
                   <h2 className="Toptitle">
-                    Book<strong>Trade</strong>
+                    i<strong>Library</strong>
                   </h2>
                 </Link>
               </div>
