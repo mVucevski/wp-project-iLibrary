@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import bookLogo from "../../assets/img/book.png";
+import CreateBookButton from "./CreateBookButton";
+import { Link } from "react-router-dom";
+
 class Header extends Component {
   render() {
     return (
@@ -15,11 +18,11 @@ class Header extends Component {
                 />
               </div>
               <div className="col-md-2">
-                <a href="#" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                   <h2 className="Toptitle">
                     Book<strong>Trade</strong>
                   </h2>
-                </a>
+                </Link>
               </div>
               <div className="col-md-6">
                 <form className="form-inline">
@@ -45,9 +48,7 @@ class Header extends Component {
               </div>
               <div className="col-md-3">
                 <div className="float-left float-md-right float-sm-left float-xl-right float-lg-right">
-                  <div className="btn btn-outline-secondary my-1 my-sm-1 create-btn">
-                    Create
-                  </div>
+                  <CreateBookButton />
                   <i className="fa fa-heart pl-4 navIcons add-pointer">
                     <strong style={{ fontSize: "15px", display: "flex" }}>
                       Wishlist
