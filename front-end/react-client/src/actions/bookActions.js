@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, GET_BOOKS, GET_BOOK } from "./types";
+import { GET_ERRORS, GET_BOOKS, GET_BOOK, DELETE_BOOK } from "./types";
 
 export const addBook = (book, history) => async dispatch => {
   try {
@@ -33,6 +33,20 @@ export const getBook = (isbn, history) => async dispatch => {
       payload: response.data
     });
   } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};
+
+export const deleteBook = (isbn, history) => async dispatch => {
+  if (window.confirm("Are you sure? This book will be deleted permanently!")) {
+    await axios.delete(`/api/book/${isbn}`);
+    dispatch({
+      type: DELETE_BOOK,
+      payload: isbn
+    });
     history.push("/");
   }
 };

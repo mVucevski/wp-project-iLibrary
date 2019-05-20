@@ -1,4 +1,4 @@
-import { GET_BOOK, GET_BOOKS } from "../actions/types";
+import { GET_BOOK, GET_BOOKS, DELETE_BOOK } from "../actions/types";
 
 const initialState = {
   books: [],
@@ -17,6 +17,12 @@ export default function(state = initialState, action) {
         ...state,
         book: action.payload
       };
+    case DELETE_BOOK:
+      return {
+        ...state,
+        books: state.books.filter(b => b.isbn !== action.payload)
+      };
+
     default:
       return state;
   }

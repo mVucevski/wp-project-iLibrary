@@ -15,6 +15,7 @@ class AddBook extends Component {
       coverUrl: "",
       genre: "",
       description: "",
+      language: "",
       publicationDate: new Date().toJSON().slice(0, 10),
       errors: {}
     };
@@ -42,8 +43,11 @@ class AddBook extends Component {
       coverUrl: this.state.coverUrl,
       genre: this.state.genre,
       description: this.state.description,
-      publicationDate: this.state.publicationDate
+      publicationDate: this.state.publicationDate,
+      language: this.state.language
     };
+
+    console.log("newbook: ", newBook);
 
     this.props.addBook(newBook, this.props.history);
   }
@@ -104,6 +108,21 @@ class AddBook extends Component {
                     />
                     {errors.isbn && (
                       <div className="invalid-feedback">{errors.isbn}</div>
+                    )}
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.language
+                      })}
+                      placeholder="Language"
+                      name="language"
+                      value={this.state.language}
+                      onChange={this.onChange}
+                    />
+                    {errors.language && (
+                      <div className="invalid-feedback">{errors.language}</div>
                     )}
                   </div>
                   <div className="form-group">
