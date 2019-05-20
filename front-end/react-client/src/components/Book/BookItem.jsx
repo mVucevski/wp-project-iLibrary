@@ -7,7 +7,11 @@ class BookItem extends Component {
     return (
       <div className="col-lg-2 col-md-4 mb-4 d-flex align-items-stretch">
         <div className="card h-100">
-          <Link to="/" style={{ textDecoration: "none" }} className="cards-a">
+          <Link
+            to={`/book/${book.isbn}`}
+            style={{ textDecoration: "none" }}
+            className="cards-a"
+          >
             <div className="card add-pointer">
               <img
                 className="card-img-top card-img"

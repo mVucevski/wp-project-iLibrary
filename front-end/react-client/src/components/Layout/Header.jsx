@@ -15,6 +15,7 @@ class Header extends Component {
                   className="img"
                   style={{ height: "70px" }}
                   src={bookLogo}
+                  alt=""
                 />
               </div>
               <div className="col-md-2">
@@ -86,6 +87,7 @@ class Header extends Component {
                     className="nav-link"
                     href="#"
                     style={{ textDecoration: "none" }}
+                    alt=""
                   >
                     Bestsellers
                   </a>
@@ -95,6 +97,7 @@ class Header extends Component {
                     className="nav-link"
                     href="#"
                     style={{ textDecoration: "none" }}
+                    alt=""
                   >
                     Latest Deals
                   </a>

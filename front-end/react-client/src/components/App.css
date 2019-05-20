@@ -121,3 +121,9 @@
 .checkOrder {
   max-width: 200px;
 }
+
+.bookDetailsBorder {
+  border: 1px solid silver;
+  border-radius: 20px;
+  height: 400px;
+}

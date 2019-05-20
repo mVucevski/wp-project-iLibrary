@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddBook from "./Book/AddBook";
 import { Provider } from "react-redux";
 import store from "../store";
+import BookDetails from "./Book/BookDetails";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <br />
           <Route exact path="/" component={Home} />
           <Route exact path="/addBook" component={AddBook} />
+          <Route exact path="/book/:id" component={BookDetails} />
         </div>
       </Router>
     </Provider>
