@@ -22,7 +22,7 @@ public class BookService {
             Book existingBook = findBookByISBN(book.getIsbn());
         }
 
-        if(book.getCoverUrl().length() < 1){
+        if(book.getCoverUrl()==null || book.getCoverUrl().length() < 1){
             book.setCoverUrl("https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/2410/9780241003435.jpg");
         }
 

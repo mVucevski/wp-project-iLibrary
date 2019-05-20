@@ -32,6 +32,10 @@ export const getBook = (isbn, history) => async dispatch => {
       type: GET_BOOK,
       payload: response.data
     });
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
@@ -48,5 +52,21 @@ export const deleteBook = (isbn, history) => async dispatch => {
       payload: isbn
     });
     history.push("/");
+  }
+};
+
+export const updateBook = (isbn, updatedBook, history) => async dispatch => {
+  try {
+    await axios.patch(`/api/book/${isbn}`, updatedBook);
+    history.push(`/book/${isbn}`);
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
   }
 };

@@ -24,6 +24,7 @@ public class Book {
 
     private String description;
 
+    private String language;
 
     //TO-DO
     //Make separate entity for the genres
@@ -106,6 +107,14 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public Date getPublicationDate() {

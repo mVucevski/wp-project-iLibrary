@@ -114,7 +114,12 @@ class BookDetails extends Component {
               </div>
 
               <div className="pt-2">
-                <button className="btn btn-block btn-secondary">Edit</button>
+                <Link
+                  to={`/book/${book.isbn}/edit`}
+                  className="btn btn-block btn-secondary"
+                >
+                  Edit
+                </Link>
                 <button
                   className="btn btn-block btn-danger"
                   onClick={this.onDelete.bind(this, id)}
