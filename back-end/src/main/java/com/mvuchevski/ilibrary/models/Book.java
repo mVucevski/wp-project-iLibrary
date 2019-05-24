@@ -5,6 +5,7 @@ import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class Book {
     private String description;
 
     private String language;
+
+    @Min(value = 0, message = "The value can't be negative")
+    private Integer availableCopies = 0;
 
     //TO-DO
     //Make separate entity for the genres
@@ -146,6 +150,23 @@ public class Book {
         this.updated_At = updated_At;
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public Integer getAvailableCopies() {
+
+        return availableCopies;
+    }
+
+    public void setAvailableCopies(Integer availableCopies) {
+        this.availableCopies = availableCopies;
+    }
+
     @PrePersist
     protected void onCreate(){
         this.created_At = new Date();
@@ -155,4 +176,6 @@ public class Book {
     protected void onUpdate(){
         this.updated_At = new Date();
     }
+
+
 }

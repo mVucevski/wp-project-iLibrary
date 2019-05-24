@@ -23,4 +23,19 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         BookNotFoundExceptionResponse exceptionResponse = new BookNotFoundExceptionResponse(ex.getMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleBookAvailableCopiesException(BookAvailableCopiesException ex, WebRequest request){
+        BookAvailableCopiesExceptionResponse exceptionResponse = new BookAvailableCopiesExceptionResponse(ex.getMessage());
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleReservationNotFoundException(ReservationNotFoundException ex, WebRequest request){
+        ReservationNotFoundExceptionResponse exceptionResponse = new ReservationNotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
+
 }

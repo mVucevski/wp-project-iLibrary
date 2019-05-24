@@ -39,4 +39,11 @@ public class ReservationController {
 
         return reservationService.findAllByBook(book_isbn);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReservationById(@PathVariable Long id){
+        reservationService.deleteReservationById(id);
+
+        return new ResponseEntity<String>("Reservation with ID: "+id+" was deleted",HttpStatus.OK);
+    }
 }

@@ -82,10 +82,17 @@ public class Reservation {
     }
 
     public Date getEnd_At() {
+
         return end_At;
     }
 
     public void setEnd_At(Date end_At) {
         this.end_At = end_At;
+    }
+
+    public boolean isExpired(){
+        Date currentDate = new Date();
+
+        return currentDate.after(end_At);
     }
 }
