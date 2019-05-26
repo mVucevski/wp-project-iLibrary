@@ -25,12 +25,13 @@ public class ReservationService {
         Book book = bookService.findBookByISBN(book_isbn);
 
 
-        if(book.getAvailableCopies() <= 0){
-            throw new BookAvailableCopiesException("The Book with ISBN: '" + book_isbn + "' doesn't have available copies at the moment!");
-        }
+//        if(book.getAvailableCopies() <= 0){
+//            throw new BookAvailableCopiesException("The Book with ISBN: '" + book_isbn + "' doesn't have available copies at the moment!");
+//        }
 
-        book.setAvailableCopies(book.getAvailableCopies() - 1);
-
+        if(book.getCopiesLeft() <= 0){
+           throw new BookAvailableCopiesException("The Book with ISBN: '" + book_isbn + "' doesn't have available copies at the moment!");
+       }
 
         Reservation reservation = new Reservation();
         reservation.setBook(book);
@@ -67,7 +68,7 @@ public class ReservationService {
 
     private void deleteReservation(Reservation r){
         Book book = r.getBook();
-        book.setAvailableCopies(book.getAvailableCopies() + 1);
+        //book.setAvailableCopies(book.getAvailableCopies() + 1);
         reservationRepository.delete(r);
     }
 

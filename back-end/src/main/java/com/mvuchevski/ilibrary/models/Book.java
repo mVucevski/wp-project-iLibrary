@@ -8,9 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Book {
@@ -58,6 +56,9 @@ public class Book {
 
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
     List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
+    Set<Loan> loans = new TreeSet<>();
 
     public Book(){}
 
@@ -165,6 +166,28 @@ public class Book {
 
     public void setAvailableCopies(Integer availableCopies) {
         this.availableCopies = availableCopies;
+    }
+
+    public Set<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(Set<Loan> loans) {
+        this.loans = loans;
+    }
+
+    public void setCopiesLeft(int copiesLeft) {
+        this.copiesLeft = copiesLeft;
+    }
+
+    @Transient
+    private int copiesLeft;
+
+    @Transient
+    public int getCopiesLeft(){
+        int copiesToBorrow = availableCopies - reservations.size();
+        if(copiesToBorrow < 0) copiesToBorrow = 0;
+        return copiesToBorrow;
     }
 
     @PrePersist
