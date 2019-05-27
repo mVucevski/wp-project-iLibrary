@@ -185,7 +185,7 @@ public class Book {
 
     @Transient
     public int getCopiesLeft(){
-        int copiesToBorrow = availableCopies - reservations.size();
+        int copiesToBorrow = availableCopies - reservations.size() - loans.size();
         if(copiesToBorrow < 0) copiesToBorrow = 0;
         return copiesToBorrow;
     }

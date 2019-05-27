@@ -81,4 +81,8 @@ public class ReservationService {
 
         deleteReservation(r.get());
     }
+
+    public void deleteResByBookISBN(String isbn){
+        deleteReservationById(findAllByBook(isbn).iterator().next().getId());
+    }
 }
