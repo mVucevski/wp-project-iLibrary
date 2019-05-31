@@ -3,6 +3,9 @@ import { getBook, deleteBook } from "../../actions/bookActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import BookDoesntExist from "./BookDoesntExist";
+import ReservationButton from "./ReservationButton";
+import BookStatusTable from "./BookStatus/BookStatusTable";
 
 class BookDetails extends Component {
   constructor() {
@@ -33,16 +36,12 @@ class BookDetails extends Component {
     const { book } = this.props.book;
     const { errors } = this.state;
 
-    console.log("Book Detels:", book);
-
     let pageContent;
 
+    console.log("BOOK:", book);
+
     if (errors.isbn) {
-      pageContent = (
-        <div className="alert alert-danger text-center" role="alert">
-          {errors.isbn}
-        </div>
-      );
+      pageContent = <BookDoesntExist error={errors.isbn} />;
     } else {
       pageContent = (
         <div>
@@ -108,9 +107,8 @@ class BookDetails extends Component {
                 <button className="btn btn-block btn-success">
                   Add to Cart
                 </button>
-                <button className="btn btn-block btn-danger">
-                  Add to Wishlist
-                </button>
+
+                <ReservationButton reserved={book.isbn} />
               </div>
 
               <div className="pt-2">
@@ -136,10 +134,24 @@ class BookDetails extends Component {
                             @Html.ActionLink("3", "Rate", new { id = Model.ID, rating = 3 }, new { @className = "btn btn-outline-secondary" })
                             @Html.ActionLink("4", "Rate", new { id = Model.ID, rating = 4 }, new { @className = "btn btn-outline-secondary" })
                             @Html.ActionLink("5", "Rate", new { id = Model.ID, rating = 5 }, new { @className = "btn btn-outline-secondary" })
-                        */}
+                        
+                        
+                        
+                          */}
                 click to rate
               </div>
             </div>
+          </div>
+
+          <div>
+            <h4>Status</h4>
+            <hr />
+            {book.reservations && book.loans && (
+              <BookStatusTable
+                reservations={book.reservations}
+                loans={book.loans}
+              />
+            )}
           </div>
         </div>
       );

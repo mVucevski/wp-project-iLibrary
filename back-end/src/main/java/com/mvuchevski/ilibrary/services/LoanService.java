@@ -28,7 +28,10 @@ public class LoanService {
             throw new BookAvailableCopiesException("The Book with ISBN: '" + book_isbn + "' doesn't have available copies at the moment!");
         }
 
-        reservationService.deleteResByBookISBN(book_isbn);
+        if(reservationService.findAllByBook(book_isbn).iterator().hasNext()){
+            reservationService.deleteResByBookISBN(book_isbn);
+        }
+
 
         Loan loan = new Loan();
         loan.setBook(book);

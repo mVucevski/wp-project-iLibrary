@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { updateBook, getBook } from "../../actions/bookActions";
+import BookDoesntExist from "./BookDoesntExist";
 
 class EditBook extends Component {
   constructor() {
@@ -84,11 +85,7 @@ class EditBook extends Component {
   render() {
     const { errors } = this.state;
     if (errors.isbn) {
-      return (
-        <div className="alert alert-danger text-center" role="alert">
-          {errors.isbn}
-        </div>
-      );
+      return <BookDoesntExist error={errors.isbn} />;
     } else {
       return (
         <div>
