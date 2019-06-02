@@ -37,6 +37,8 @@ export const getBook = (isbn, history) => async dispatch => {
       payload: {}
     });
   } catch (error) {
+    //console.log("ERROR:", error);
+
     dispatch({
       type: GET_ERRORS,
       payload: error.response.data

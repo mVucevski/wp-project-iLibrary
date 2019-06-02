@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { getBook, deleteBook } from "../../actions/bookActions";
-import { addReservation } from "../../actions/reservationActions";
+import {
+  addReservation,
+  removeReservation
+} from "../../actions/reservationActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -27,11 +30,15 @@ class BookDetails extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+    console.log("WILL RECIVE PROPS", nextProps);
 
-    // if (nextProps.book.book.isbn) {
-    //   console.log("COMPONETEN DID MOUNT", this.props.book);
-    //   this.setState({ reserved: this.checkReservation(this.props.book.book) });
-    // }
+    const { book } = this.props.book;
+
+    if (book.reservations) {
+      this.setState({
+        reserved: book.reservations.some(item => item.bookISBN === book.isbn)
+      });
+    }
   }
 
   onDelete(isbn) {
@@ -39,18 +46,20 @@ class BookDetails extends Component {
   }
 
   onReservIt() {
-    console.log("ON RESERV IT CALLED!");
-
     if (this.state.reserved) {
-      console.log("RESERVE:", this.state.reserved);
+      this.props.removeReservation(this.props.book.book.isbn);
     } else {
       this.props.addReservation(this.props.book.book.isbn);
     }
   }
 
-  checkReservation(book) {
-    return book.reservations.some(item => item.bookISBN === book.isbn);
-  }
+  // checkReservation(book) {
+  //   console.log("CEHCK RESERVATION: ");
+
+  //   this.setState({
+  //     reserved: book.reservations.some(item => item.bookISBN === book.isbn)
+  //   });
+  // }
 
   render() {
     const { id } = this.props.match.params;
@@ -60,12 +69,14 @@ class BookDetails extends Component {
     let pageContent;
     let checkRes = false;
 
-    if (book.reservations) {
-      checkRes = book.reservations.some(item => item.bookISBN === book.isbn);
-      console.log("CEHCKRES:::", checkRes);
-    }
-
-    console.log("BOOK:", book);
+    // if (book.reservations) {
+    //   //checkRes = book.reservations.some(item => item.bookISBN === book.isbn);
+    //   // console.log("CEHCKRES:::", checkRes);
+    //   // if (checkRes !== this.state.reserved) {
+    //   //   this.setState({ reserved: checkRes });
+    //   // }
+    //   this.checkReservation(book);
+    // }
 
     if (errors.isbn) {
       pageContent = <BookDoesntExist error={errors.isbn} />;
@@ -139,7 +150,7 @@ class BookDetails extends Component {
                 </button>
 
                 <ReservationButton
-                  reserved={checkRes}
+                  reserved={this.state.reserved}
                   onReservIt={this.onReservIt.bind(this)}
                 />
               </div>
@@ -209,5 +220,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getBook, deleteBook, addReservation }
+  { getBook, deleteBook, addReservation, removeReservation }
 )(BookDetails);

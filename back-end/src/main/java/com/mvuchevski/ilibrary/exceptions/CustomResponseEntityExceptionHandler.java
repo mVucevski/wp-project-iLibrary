@@ -36,6 +36,9 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-
-
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleLoanNotReturnedException(LoanNotReturnedException ex, WebRequest request){
+        LoanNotReturnedExceptionResponse exceptionResponse = new LoanNotReturnedExceptionResponse(ex.getMessage());
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }

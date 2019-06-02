@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "../store";
 import BookDetails from "./Book/BookDetails";
 import EditBook from "./Book/EditBook";
+import LoanBook from "./StatusManager/LoanBook";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <Route exact path="/addBook" component={AddBook} />
           <Route exact path="/book/:id" component={BookDetails} />
           <Route exact path="/book/:id/edit" component={EditBook} />
+
+          <Route exact path="/statusManager" component={LoanBook} />
         </div>
       </Router>
     </Provider>

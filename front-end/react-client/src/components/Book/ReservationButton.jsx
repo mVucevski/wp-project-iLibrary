@@ -4,8 +4,6 @@ import classnames from "classnames";
 const ReservationButton = props => {
   let buttonText;
 
-  console.log("PROPS2313:", props);
-
   if (props.reserved) {
     buttonText = "Remove Reservation";
   } else {

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/loan")
 @CrossOrigin
@@ -28,9 +30,15 @@ public class LoanController {
     public Iterable<Loan> getAllLoans(){return loanService.getAllLoans();}
 
     @GetMapping("/{book_isbn}")
-    public Iterable<Loan> getAllLoansByBook(@PathVariable String book_isbn){
+    public Set<Loan> getAllLoansByBook(@PathVariable String book_isbn){
 
         return loanService.findAllByBook(book_isbn);
+    }
+
+    @DeleteMapping("/{book_isbn}")
+    public ResponseEntity<?> returnBook(@PathVariable String book_isbn){
+        loanService.returnLoanedBook(book_isbn);
+        return new ResponseEntity<>("The loan for the book with ISBN: '" + book_isbn + "' was successfully returned.", HttpStatus.OK);
     }
 
 }

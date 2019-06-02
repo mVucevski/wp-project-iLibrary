@@ -9,6 +9,7 @@ import com.mvuchevski.ilibrary.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -82,7 +83,22 @@ public class ReservationService {
         deleteReservation(r.get());
     }
 
+    @Transactional
     public void deleteResByBookISBN(String isbn){
-        deleteReservationById(findAllByBook(isbn).iterator().next().getId());
+        //deleteReservationById(findAllByBook(isbn).iterator().next().getId());
+        Integer tmp = reservationRepository.deleteReservationByBookISBN(isbn);
+
+        //System.out.println("DELETET: " + tmp.get().toString());
+
+        if(tmp==0){
+            throw new ReservationNotFoundException("Reservation with Book ISBN: '" + isbn + "' was not found!");
+        }
+//
+//        try{
+//            reservationRepository.deleteReservationByBookISBN(isbn);
+//        }catch(Exception ex){
+//            throw new ReservationNotFoundException("Reservation with ISBN: '" + isbn + "' was not found!");
+//        }
+
     }
 }

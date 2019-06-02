@@ -46,4 +46,12 @@ public class ReservationController {
 
         return new ResponseEntity<String>("Reservation with ID: "+id+" was deleted",HttpStatus.OK);
     }
+
+    @DeleteMapping("/isbn/{isbn}")
+    public ResponseEntity<?> deleteReservationByISBN(@PathVariable String isbn){
+        reservationService.deleteResByBookISBN(isbn);
+
+        return new ResponseEntity<String>("Reservation with ISBN: "+isbn+" was deleted",HttpStatus.OK);
+    }
+
 }
