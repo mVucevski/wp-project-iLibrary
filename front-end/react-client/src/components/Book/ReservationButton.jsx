@@ -3,6 +3,9 @@ import classnames from "classnames";
 
 const ReservationButton = props => {
   let buttonText;
+
+  console.log("PROPS2313:", props);
+
   if (props.reserved) {
     buttonText = "Remove Reservation";
   } else {
@@ -11,10 +14,10 @@ const ReservationButton = props => {
   return (
     <React.Fragment>
       <button
-        onClick={props.onClick}
+        onClick={props.onReservIt}
         className={classnames("btn btn-block", {
-          "btn-info": props.reserved,
-          "btn-secondary": !props.reserved
+          "btn-info": !props.reserved,
+          "btn-danger": props.reserved
         })}
       >
         {buttonText}

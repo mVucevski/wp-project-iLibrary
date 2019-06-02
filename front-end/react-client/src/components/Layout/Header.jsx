@@ -85,7 +85,7 @@ class Header extends Component {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="#"
+                    href="/"
                     style={{ textDecoration: "none" }}
                     alt=""
                   >
@@ -95,7 +95,7 @@ class Header extends Component {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="#"
+                    href="/"
                     style={{ textDecoration: "none" }}
                     alt=""
                   >
@@ -105,7 +105,7 @@ class Header extends Component {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="#"
+                    href="/"
                     style={{ textDecoration: "none" }}
                   >
                     Trade Section
@@ -114,7 +114,7 @@ class Header extends Component {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="#"
+                    href="/"
                     style={{ textDecoration: "none" }}
                   >
                     Surprise Me
@@ -123,7 +123,7 @@ class Header extends Component {
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
-                    href="#"
+                    href="/"
                     id="navbarDropdownPortfolio"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -135,22 +135,22 @@ class Header extends Component {
                     className="dropdown-menu dropdown-menu-right"
                     aria-labelledby="navbarDropdownPortfolio"
                   >
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Fiction
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Non-Fiction
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Crime & Thriller
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Fantasy
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       History
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Food & Drink
                     </a>
                   </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getBook, deleteBook } from "../../actions/bookActions";
+import { addReservation } from "../../actions/reservationActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,7 +13,8 @@ class BookDetails extends Component {
     super();
 
     this.state = {
-      errors: {}
+      errors: {},
+      reserved: false
     };
   }
 
@@ -25,10 +27,29 @@ class BookDetails extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+
+    // if (nextProps.book.book.isbn) {
+    //   console.log("COMPONETEN DID MOUNT", this.props.book);
+    //   this.setState({ reserved: this.checkReservation(this.props.book.book) });
+    // }
   }
 
   onDelete(isbn) {
     this.props.deleteBook(isbn, this.props.history);
+  }
+
+  onReservIt() {
+    console.log("ON RESERV IT CALLED!");
+
+    if (this.state.reserved) {
+      console.log("RESERVE:", this.state.reserved);
+    } else {
+      this.props.addReservation(this.props.book.book.isbn);
+    }
+  }
+
+  checkReservation(book) {
+    return book.reservations.some(item => item.bookISBN === book.isbn);
   }
 
   render() {
@@ -37,11 +58,20 @@ class BookDetails extends Component {
     const { errors } = this.state;
 
     let pageContent;
+    let checkRes = false;
+
+    if (book.reservations) {
+      checkRes = book.reservations.some(item => item.bookISBN === book.isbn);
+      console.log("CEHCKRES:::", checkRes);
+    }
 
     console.log("BOOK:", book);
 
     if (errors.isbn) {
       pageContent = <BookDoesntExist error={errors.isbn} />;
+    } else if (errors.availableCopies) {
+      // Tmp, I will fix it
+      pageContent = <BookDoesntExist error={errors.availableCopies} />;
     } else {
       pageContent = (
         <div>
@@ -108,7 +138,10 @@ class BookDetails extends Component {
                   Add to Cart
                 </button>
 
-                <ReservationButton reserved={book.isbn} />
+                <ReservationButton
+                  reserved={checkRes}
+                  onReservIt={this.onReservIt.bind(this)}
+                />
               </div>
 
               <div className="pt-2">
@@ -165,6 +198,7 @@ BookDetails.propTypes = {
   book: PropTypes.object.isRequired,
   getBook: PropTypes.func.isRequired,
   deleteBook: PropTypes.func.isRequired,
+  addReservation: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -175,5 +209,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getBook, deleteBook }
+  { getBook, deleteBook, addReservation }
 )(BookDetails);
