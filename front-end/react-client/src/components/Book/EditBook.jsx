@@ -19,6 +19,7 @@ class EditBook extends Component {
       description: "",
       language: "",
       publicationDate: "",
+      availableCopies: "",
       errors: {}
     };
 
@@ -40,7 +41,8 @@ class EditBook extends Component {
       genre,
       description,
       language,
-      publicationDate
+      publicationDate,
+      availableCopies
     } = nextProps.book;
 
     this.setState({
@@ -52,7 +54,8 @@ class EditBook extends Component {
       genre,
       description,
       language,
-      publicationDate
+      publicationDate,
+      availableCopies
     });
   }
 
@@ -76,7 +79,8 @@ class EditBook extends Component {
       genre: this.state.genre,
       description: this.state.description,
       language: this.state.language,
-      publicationDate: this.state.publicationDate
+      publicationDate: this.state.publicationDate,
+      availableCopies: this.state.availableCopies
     };
 
     this.props.updateBook(this.state.isbn, updatedBook, this.props.history);
@@ -216,6 +220,7 @@ class EditBook extends Component {
                     </div>
 
                     <div className="form-group">
+                      <label htmlFor="genre">Publication Date</label>
                       <input
                         type="date"
                         className={classnames("form-control form-control-lg", {
@@ -228,6 +233,24 @@ class EditBook extends Component {
                       {errors.publicationDate && (
                         <div className="invalid-feedback">
                           {errors.publicationDate}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.availableCopies
+                        })}
+                        placeholder="Available Copies"
+                        name="availableCopies"
+                        value={this.state.availableCopies}
+                        onChange={this.onChange}
+                      />
+                      {errors.availableCopies && (
+                        <div className="invalid-feedback">
+                          {errors.availableCopies}
                         </div>
                       )}
                     </div>

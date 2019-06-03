@@ -145,9 +145,18 @@ class BookDetails extends Component {
                   <i className="fa fa-times" /> Not Available
                 </p>
 
-                <button className="btn btn-block btn-success">
-                  Add to Cart
-                </button>
+                <Link
+                  to={{
+                    pathname: `/statusManager`,
+                    state: {
+                      book_isbn: book.isbn,
+                      username: ""
+                    }
+                  }}
+                  className="btn btn-block btn-info"
+                >
+                  Create Loan
+                </Link>
 
                 <ReservationButton
                   reserved={this.state.reserved}

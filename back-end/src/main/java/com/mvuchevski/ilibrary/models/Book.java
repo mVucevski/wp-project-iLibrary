@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -27,6 +28,7 @@ public class Book {
 
     private String language;
 
+    @NotNull(message = "Please enter valid number")
     @Min(value = 0, message = "The value can't be negative")
     private Integer availableCopies = 0;
 
@@ -176,15 +178,15 @@ public class Book {
         this.loans = loans;
     }
 
-    public void setCopiesLeft(int copiesLeft) {
+    public void setCopiesLeft(Integer copiesLeft) {
         this.copiesLeft = copiesLeft;
     }
 
     @Transient
-    private int copiesLeft;
+    private Integer copiesLeft = 0;
 
     @Transient
-    public int getCopiesLeft(){
+    public Integer getCopiesLeft(){
         int copiesToBorrow = availableCopies - reservations.size() - loans.size();
         if(copiesToBorrow < 0) copiesToBorrow = 0;
         return copiesToBorrow;

@@ -17,6 +17,7 @@ class AddBook extends Component {
       description: "",
       language: "",
       publicationDate: new Date().toJSON().slice(0, 10),
+      availableCopies: "",
       errors: {}
     };
 
@@ -44,7 +45,8 @@ class AddBook extends Component {
       genre: this.state.genre,
       description: this.state.description,
       publicationDate: this.state.publicationDate,
-      language: this.state.language
+      language: this.state.language,
+      availableCopies: this.state.availableCopies
     };
 
     console.log("newbook: ", newBook);
@@ -179,6 +181,7 @@ class AddBook extends Component {
                   </div>
 
                   <div className="form-group">
+                    <label htmlFor="genre">Publication Date</label>
                     <input
                       type="date"
                       className={classnames("form-control form-control-lg", {
@@ -191,6 +194,24 @@ class AddBook extends Component {
                     {errors.publicationDate && (
                       <div className="invalid-feedback">
                         {errors.publicationDate}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.availableCopies
+                      })}
+                      placeholder="Available Copies"
+                      name="availableCopies"
+                      value={this.state.availableCopies}
+                      onChange={this.onChange}
+                    />
+                    {errors.availableCopies && (
+                      <div className="invalid-feedback">
+                        {errors.availableCopies}
                       </div>
                     )}
                   </div>
