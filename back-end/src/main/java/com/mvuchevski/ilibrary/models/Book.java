@@ -62,6 +62,9 @@ public class Book {
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
     Set<Loan> loans = new TreeSet<>();
 
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
+    Set<Rating> ratings = new TreeSet<>();
+
     public Book(){}
 
     //Getters & Setters
@@ -190,6 +193,25 @@ public class Book {
         int copiesToBorrow = availableCopies - reservations.size() - loans.size();
         if(copiesToBorrow < 0) copiesToBorrow = 0;
         return copiesToBorrow;
+    }
+
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+
+    @Transient
+    public Integer getTotalRatingScore(){
+        int sum = ratings.stream().mapToInt(Rating::getRating).sum();
+
+        System.out.println("SUM RATING: " + sum);
+
+        if(ratings.size() == 0) return 0;
+
+        return sum / ratings.size();
     }
 
     @PrePersist

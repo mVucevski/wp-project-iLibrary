@@ -1,5 +1,6 @@
 package com.mvuchevski.ilibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,10 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -33,6 +32,10 @@ public class User implements UserDetails {
 
     @Transient
     private String confirmPassword;
+
+    @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    private LocalDateTime membershipExpirationDate;
+
     private Date create_At;
     private Date update_At;
 
@@ -138,6 +141,19 @@ public class User implements UserDetails {
         this.update_At = update_At;
     }
 
+    public LocalDateTime getMembershipExpirationDate() {
+        return membershipExpirationDate;
+    }
+
+    public void setMembershipExpirationDate(LocalDateTime membershipExpirationDate) {
+        this.membershipExpirationDate = membershipExpirationDate;
+    }
+
+    @Transient
+    public boolean isMemebershipExpired(){
+        return LocalDateTime.now().isAfter(membershipExpirationDate);
+    }
+
     @PrePersist
     protected void onCreate(){
         this.create_At = new Date();
@@ -146,5 +162,17 @@ public class User implements UserDetails {
     @PreUpdate
     protected void onUpdate(){
         this.update_At = new Date();
+    }
+
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    Set<Rating> ratings = new TreeSet<>();
+
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
     }
 }
