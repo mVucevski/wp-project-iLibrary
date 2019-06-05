@@ -26,8 +26,6 @@ public class Rating {
     @JsonIgnore
     private User user;
 
-    private String book_isbn;
-
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
     private LocalDateTime created_At;
 
@@ -77,14 +75,6 @@ public class Rating {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getBook_isbn() {
-        return book_isbn;
-    }
-
-    public void setBook_isbn(String book_isbn) {
-        this.book_isbn = book_isbn;
     }
 
     public LocalDateTime getCreated_At() {

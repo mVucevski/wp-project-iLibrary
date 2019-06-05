@@ -45,6 +45,15 @@ public class User implements UserDetails {
             @JoinColumn(name = "ROLE_ID") })
     private Set<Role> roles;
 
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    private Set<Loan> loans = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    private Set<Reservation> reservations = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    private Set<Rating> ratings = new HashSet<>();
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -125,6 +134,22 @@ public class User implements UserDetails {
         this.confirmPassword = confirmPassword;
     }
 
+    public Set<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(Set<Loan> loans) {
+        this.loans = loans;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     public Date getCreate_At() {
         return create_At;
     }
@@ -151,6 +176,8 @@ public class User implements UserDetails {
 
     @Transient
     public boolean isMemebershipExpired(){
+        if(membershipExpirationDate == null) return true;
+
         return LocalDateTime.now().isAfter(membershipExpirationDate);
     }
 
@@ -163,10 +190,6 @@ public class User implements UserDetails {
     protected void onUpdate(){
         this.update_At = new Date();
     }
-
-
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
-    Set<Rating> ratings = new TreeSet<>();
 
     public Set<Rating> getRatings() {
         return ratings;

@@ -13,4 +13,8 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     Iterable<Reservation> findAllByBookISBN(String bookISBN);
 
     Integer deleteReservationByBookISBN(String bookISBN);
+
+    Integer deleteReservationByBookISBNAndUsername(String bookISBN, String username);
+
+    Iterable<Reservation> findAllByUsername(String username);
 }

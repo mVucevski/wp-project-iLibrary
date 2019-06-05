@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.awt.print.Printable;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/reservation")
@@ -26,21 +28,24 @@ public class ReservationController {
     private MapValidationErrorService mapValidationErrorService;
 
     @PostMapping("/{book_isbn}")
-    public ResponseEntity<?> createNewReservation(@PathVariable String book_isbn){
+    public ResponseEntity<?> createNewReservation(@PathVariable String book_isbn, Principal principal){
 
-        Reservation newReservation = reservationService.createNewReservation(book_isbn);
+        Reservation newReservation = reservationService.createNewReservation(book_isbn, principal.getName());
         return new ResponseEntity<Reservation>(newReservation, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
-    public Iterable<Reservation> getAllReservations(){return reservationService.getAllReservations();}
+    public Iterable<Reservation> getAllReservations(Principal principal){return reservationService.getAllReservations(principal.getName());}
 
     @GetMapping("/{book_isbn}")
     public Iterable<Reservation> getAllReservationsByBook(@PathVariable String book_isbn){
-
         return reservationService.findAllByBook(book_isbn);
     }
+
+    //@PreAuthorize("hasRole('EMPLOYEE')")
+    @GetMapping("/user/{username}")
+    public Iterable<Reservation> getAllReservationsByUser(@PathVariable String username){return reservationService.getAllReservations(username);}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteReservationById(@PathVariable Long id){
@@ -50,8 +55,8 @@ public class ReservationController {
     }
 
     @DeleteMapping("/isbn/{isbn}")
-    public ResponseEntity<?> deleteReservationByISBN(@PathVariable String isbn){
-        reservationService.deleteResByBookISBN(isbn);
+    public ResponseEntity<?> deleteReservationByISBN(@PathVariable String isbn, Principal principal){
+        reservationService.deleteResByBookISBN(isbn, principal.getName());
 
         return new ResponseEntity<String>("Reservation with ISBN: "+isbn+" was deleted",HttpStatus.OK);
     }

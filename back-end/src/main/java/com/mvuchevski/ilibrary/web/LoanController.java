@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Set;
 
 @RestController
@@ -19,15 +20,15 @@ public class LoanController {
     @Autowired
     private LoanService loanService;
 
-    @PostMapping("/{book_isbn}")
-    public ResponseEntity<?> createNewLoan(@PathVariable String book_isbn){
-        Loan newLoan = loanService.createNewLoan(book_isbn);
+    @PostMapping("/{book_isbn}/{username}")
+    public ResponseEntity<?> createNewLoan(@PathVariable String book_isbn, @PathVariable String username){
+        Loan newLoan = loanService.createNewLoan(book_isbn, username);
 
         return new ResponseEntity<Loan>(newLoan,HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public Iterable<Loan> getAllLoans(){return loanService.getAllLoans();}
+    public Iterable<Loan> getAllLoans(Principal principal){return loanService.getAllLoans(principal.getName());}
 
     @GetMapping("/{book_isbn}")
     public Set<Loan> getAllLoansByBook(@PathVariable String book_isbn){
@@ -35,9 +36,9 @@ public class LoanController {
         return loanService.findAllByBook(book_isbn);
     }
 
-    @DeleteMapping("/{book_isbn}")
-    public ResponseEntity<?> returnBook(@PathVariable String book_isbn){
-        loanService.returnLoanedBook(book_isbn);
+    @DeleteMapping("/{book_isbn}/{username}")
+    public ResponseEntity<?> returnBook(@PathVariable String book_isbn, @PathVariable String username){
+        loanService.returnLoanedBook(book_isbn, username);
         return new ResponseEntity<>("The loan for the book with ISBN: '" + book_isbn + "' was successfully returned.", HttpStatus.OK);
     }
 

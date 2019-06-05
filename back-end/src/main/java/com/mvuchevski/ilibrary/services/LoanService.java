@@ -4,14 +4,18 @@ import com.mvuchevski.ilibrary.exceptions.BookAvailableCopiesException;
 import com.mvuchevski.ilibrary.exceptions.LoanNotReturnedException;
 import com.mvuchevski.ilibrary.models.Book;
 import com.mvuchevski.ilibrary.models.Loan;
+import com.mvuchevski.ilibrary.models.User;
 import com.mvuchevski.ilibrary.repositories.BookRepository;
 import com.mvuchevski.ilibrary.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
+
+import static com.mvuchevski.ilibrary.AppConstants.MAX_LOANS_PER_USER;
 
 @Service
 public class LoanService {
@@ -25,50 +29,52 @@ public class LoanService {
     @Autowired
     private ReservationService reservationService;
 
-    public Loan createNewLoan(String book_isbn){
+    @Autowired
+    private CustomUserDetailsService userService;
+
+    public Loan createNewLoan(String book_isbn, String username){
 
         Book book = bookService.findBookByISBN(book_isbn);
+        User user = userService.loadUserByUsername(username);
+        Set<Loan> loans = user.getLoans();
+
+        if(loans.stream().filter(l->l.getReturned_At()==null).count() >= MAX_LOANS_PER_USER){
+            throw new LoanNotReturnedException("The user hasn't returned all of his previous books. You must return all of the loaned books before taking a new one.");
+        }
 
         if(book.getCopiesLeft() <= 0){
             throw new BookAvailableCopiesException("The Book with ISBN: '" + book_isbn + "' doesn't have available copies at the moment!");
         }
 
-        if(reservationService.findAllByBook(book_isbn).iterator().hasNext()){
-            reservationService.deleteResByBookISBN(book_isbn);
-        }
-
-        //TO-DO: Proverka dali korisnikot veke ima zemeno kniga
-        boolean hasNotReturnedBook = book.getLoans().stream().anyMatch(e->e.getReturned_At()==null);
-
-        if(hasNotReturnedBook){
-            throw new LoanNotReturnedException("The user hasn't returned all of his previous books. You must return all of the loaned books before taking a new one.");
+        if(user.getReservations().stream().anyMatch(e->e.getBookISBN().equals(book_isbn))){
+            reservationService.deleteResByBookISBN(book_isbn,username);
         }
 
         Loan loan = new Loan();
         loan.setBook(book);
         loan.setBookISBN(book_isbn);
-
-
-
+        loan.setUser(user);
 
         return loanRepository.save(loan);
     }
 
-    public void returnLoanedBook(String isbn){
+    public void returnLoanedBook(String isbn, String username){
         Set<Loan> loans = findAllByBook(isbn);
+        Optional<Loan> loan = loans.stream().filter(e->e.getReturned_At()==null).filter(l->l.getUser().getUsername().equals(username)).findAny();
 
-        Optional<Loan> l = loans.stream().filter(e->e.getReturned_At()==null).findAny();
-
-        if(!l.isPresent()){
-            //To-Do Make custom exception
-            throw new LoanNotReturnedException("There isn't active loan for the book with ISBN: " + isbn);
+        if(!loan.isPresent()){
+            throw new LoanNotReturnedException("There isn't active loan for the book with ISBN: '" + isbn + "' for the user: '" + username + "'");
         }
 
-        l.get().setReturned_At(LocalDateTime.now());
-        loanRepository.save(l.get());
+        loan.get().setReturned_At(LocalDateTime.now());
+        loanRepository.save(loan.get());
     }
 
-    public Iterable<Loan> getAllLoans(){return loanRepository.findAll();}
+    public Iterable<Loan> getAllLoans(String username){
+        User user = userService.loadUserByUsername(username);
+
+        return loanRepository.findAllByUser(user);
+    }
 
     public Set<Loan> findAllByBook(String book_isbn){
         Book book = bookService.findBookByISBN(book_isbn);

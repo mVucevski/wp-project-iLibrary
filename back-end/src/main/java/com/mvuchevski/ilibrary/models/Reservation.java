@@ -24,9 +24,12 @@ public class Reservation {
 
     @Column(updatable = false)
     private String bookISBN;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+    private String username;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date created_At;
@@ -71,6 +74,22 @@ public class Reservation {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getCreated_At() {

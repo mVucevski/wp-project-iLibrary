@@ -25,7 +25,9 @@ public class Loan {
     @Column(updatable = false)
     private String bookISBN;
 
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
 
     private Integer fee = 0;
 
@@ -70,6 +72,14 @@ public class Loan {
 
     public void setBookISBN(String bookISBN) {
         this.bookISBN = bookISBN;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getFee() {
