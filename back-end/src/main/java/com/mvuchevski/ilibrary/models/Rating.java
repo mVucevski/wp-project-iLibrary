@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -14,7 +16,10 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Rating can't be blank!")
     private Integer rating;
+
+    private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="book_id", nullable = false)
@@ -25,6 +30,7 @@ public class Rating {
     @JoinColumn(name="user", nullable = false)
     @JsonIgnore
     private User user;
+
 
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
     private LocalDateTime created_At;

@@ -1,6 +1,7 @@
 package com.mvuchevski.ilibrary.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -62,6 +63,7 @@ public class Book {
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
     Set<Loan> loans = new TreeSet<>();
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
     Set<Rating> ratings = new TreeSet<>();
 
@@ -204,14 +206,14 @@ public class Book {
     }
 
     @Transient
-    public Integer getTotalRatingScore(){
+    public Double getTotalRatingScore(){
         int sum = ratings.stream().mapToInt(Rating::getRating).sum();
 
         System.out.println("SUM RATING: " + sum);
 
-        if(ratings.size() == 0) return 0;
+        if(ratings.size() == 0) return 0.0;
 
-        return sum / ratings.size();
+        return (double) sum / (double) ratings.size();
     }
 
     @PrePersist
