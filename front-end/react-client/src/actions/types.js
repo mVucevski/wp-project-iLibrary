@@ -15,3 +15,6 @@ export const GET_LOANS = "GET_LOANS";
 export const GET_LOAN = "GET_LOAN";
 export const ADD_LOAN = "ADD_LOAN";
 export const RETURN_LOANED_BOOK = "RETURN_LOANED_BOOK";
+
+//Types for Security Actions
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
