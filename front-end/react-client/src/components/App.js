@@ -29,6 +29,9 @@ if (jwtToken) {
   });
 
   const currentTime = Date.now() / 1000;
+
+  console.log("cureetnTIME:" + currentTime + " ext: " + decoded_jwtToken.ext);
+
   if (decoded_jwtToken.ext < currentTime) {
     store.dispatch(logout());
     window.location.href = "/";

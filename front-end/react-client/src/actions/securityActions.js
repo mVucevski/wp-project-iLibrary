@@ -24,10 +24,13 @@ export const login = LoginRequest => async dispatch => {
     const res = await axios.post("/api/users/login", LoginRequest);
 
     // extract the token
-    const { token } = res.data;
+    const { token, role } = res.data;
 
     //store the token in local Storage
     localStorage.setItem("jwtToken", token);
+
+    //set role
+    localStorage.setItem("userRole", role);
 
     // set out token in header ***
     setJWTToken(token);
@@ -41,6 +44,8 @@ export const login = LoginRequest => async dispatch => {
       payload: decoded
     });
   } catch (error) {
+    console.log("LOGIN ERRORS:", error.response);
+
     dispatch({
       type: GET_ERRORS,
       payload: error.response.data
@@ -50,6 +55,7 @@ export const login = LoginRequest => async dispatch => {
 
 export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken");
+  localStorage.removeItem("userRole");
   setJWTToken(false);
   dispatch({
     type: SET_CURRENT_USER,

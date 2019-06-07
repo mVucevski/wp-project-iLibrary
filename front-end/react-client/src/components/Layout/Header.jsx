@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import bookLogo from "../../assets/img/book.png";
 import CreateBookButton from "./CreateBookButton";
 import { Link } from "react-router-dom";
+import UserManagmentButton from "./UserManagmentButton";
 
 class Header extends Component {
   render() {
@@ -156,20 +157,7 @@ class Header extends Component {
                   </div>
                 </li>
               </ul>
-              <ul className="navbar-nav ml-auto" style={{ fontWeight: "bold" }}>
-                <ul className="nav navbar-nav navbar-right">
-                  <li className="pr-2 py-1">
-                    <div className="btn btn-outline-secondary my-1 my-sm-1 create-btn">
-                      Register
-                    </div>
-                  </li>
-                  <li className="pr-2 py-1">
-                    <div className="btn btn-outline-secondary my-1 my-sm-1 create-btn">
-                      Login
-                    </div>
-                  </li>
-                </ul>
-              </ul>
+              <UserManagmentButton />
             </div>
           </div>
         </nav>

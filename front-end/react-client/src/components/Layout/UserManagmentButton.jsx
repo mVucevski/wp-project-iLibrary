@@ -38,11 +38,15 @@ class UserManagmentButton extends Component {
       <ul className="nav navbar-nav navbar-right">
         <li className="pr-2 py-1">
           <Link to="/" className="btn btn-outline-secondary">
-            User Name
+            {user.fullName}
           </Link>
         </li>
         <li className="pr-2 py-1">
-          <Link to="/logout" className="btn btn-outline-secondary">
+          <Link
+            to="/logout"
+            className="btn btn-outline-secondary"
+            onClick={this.logout.bind(this)}
+          >
             Log out
           </Link>
         </li>
