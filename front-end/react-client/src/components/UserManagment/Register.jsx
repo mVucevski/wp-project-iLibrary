@@ -76,6 +76,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
+                    autoComplete="username"
                     className={classnames("form-control form-control-lg", {
                       "is-invalid": errors.username
                     })}
@@ -91,6 +92,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
+                    autoComplete="new-password"
                     className={classnames("form-control form-control-lg", {
                       "is-invalid": errors.password
                     })}
@@ -106,6 +108,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
+                    autoComplete="new-password"
                     className={classnames("form-control form-control-lg", {
                       "is-invalid": errors.confirmPassword
                     })}

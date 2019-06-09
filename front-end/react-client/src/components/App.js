@@ -17,15 +17,20 @@ import jwt_decode from "jwt-decode";
 import setJWTToken from "../securityUtils/setJWTToken";
 import Register from "./UserManagment/Register";
 import Login from "./UserManagment/Login";
+import SecuredRoute from "../securityUtils/SecuredRoute";
 
 const jwtToken = localStorage.jwtToken;
+const userRole = localStorage.userRole;
 
 if (jwtToken) {
   setJWTToken(jwtToken);
   const decoded_jwtToken = jwt_decode(jwtToken);
   store.dispatch({
     type: SET_CURRENT_USER,
-    payload: decoded_jwtToken
+    payload: {
+      user: decoded_jwtToken,
+      role: userRole
+    }
   });
 
   const currentTime = Date.now() / 1000;
@@ -37,6 +42,9 @@ if (jwtToken) {
     window.location.href = "/";
   }
 }
+
+const roleUser = "ROLE_USER";
+const roleAdmin = "ROLE_ADMIN";
 
 function App() {
   return (
@@ -50,7 +58,12 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
 
-          <Route exact path="/addBook" component={AddBook} />
+          <SecuredRoute
+            allowedRoles={[roleAdmin]}
+            exact
+            path="/addBook"
+            component={AddBook}
+          />
           <Route exact path="/book/:id" component={BookDetails} />
           <Route exact path="/book/:id/edit" component={EditBook} />
 
@@ -62,3 +75,5 @@ function App() {
 }
 
 export default App;
+
+//allowedRoles={"ROLE_USER"}

@@ -2,7 +2,8 @@ import { SET_CURRENT_USER } from "../actions/types";
 
 const initialState = {
   user: {},
-  validToken: false
+  validToken: false,
+  role: ""
 };
 
 const booleanActionPayload = payload => {
@@ -20,8 +21,9 @@ export default function(state = initialState, action) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        validToken: booleanActionPayload(action.payload),
-        user: action.payload
+        validToken: booleanActionPayload(action.payload.user),
+        user: action.payload.user,
+        role: action.payload.role
       };
 
     default:

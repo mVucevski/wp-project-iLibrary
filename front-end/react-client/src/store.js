@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
+import { expiredTokenMiddleware } from "./middleware";
 
 const initialState = {};
 const middleware = [thunk];
@@ -15,7 +16,7 @@ if (window.navigator.userAgent.includes("Chrome") && ReactReduxDevTools) {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(...middleware),
+      applyMiddleware(...middleware, expiredTokenMiddleware),
       ReactReduxDevTools
     )
   );
@@ -23,7 +24,7 @@ if (window.navigator.userAgent.includes("Chrome") && ReactReduxDevTools) {
   store = createStore(
     rootReducer,
     initialState,
-    compose(applyMiddleware(...middleware))
+    compose(applyMiddleware(...middleware, expiredTokenMiddleware))
   );
 }
 

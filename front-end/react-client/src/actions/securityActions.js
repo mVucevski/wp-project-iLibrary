@@ -41,7 +41,10 @@ export const login = LoginRequest => async dispatch => {
     //dispatch to our securityReducer
     dispatch({
       type: SET_CURRENT_USER,
-      payload: decoded
+      payload: {
+        user: decoded,
+        role: role
+      }
     });
   } catch (error) {
     console.log("LOGIN ERRORS:", error.response);
@@ -57,6 +60,10 @@ export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken");
   localStorage.removeItem("userRole");
   setJWTToken(false);
+  window.location.href = "/";
+
+  //console.log("LOGOUT: ");
+
   dispatch({
     type: SET_CURRENT_USER,
     payload: {}
