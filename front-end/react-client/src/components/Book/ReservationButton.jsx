@@ -5,7 +5,12 @@ const ReservationButton = props => {
   let buttonText;
 
   if (props.reserved) {
-    buttonText = "Remove Reservation";
+    buttonText = (
+      <div>
+        <i className="fa fa-minus-circle" />
+        Remove Reservation
+      </div>
+    );
   } else {
     buttonText = "Reserve It";
   }

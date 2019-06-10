@@ -44,7 +44,7 @@ if (jwtToken) {
 }
 
 const roleUser = "ROLE_USER";
-const roleAdmin = "ROLE_ADMIN";
+const roleAdmin = "ROLE_EMPLOYEE";
 
 function App() {
   return (
@@ -59,15 +59,31 @@ function App() {
           <Route exact path="/login" component={Login} />
 
           <SecuredRoute
+            allowedRoles={[roleAdmin, roleUser]}
+            exact
+            path="/book/:id"
+            component={BookDetails}
+          />
+
+          <SecuredRoute
             allowedRoles={[roleAdmin]}
             exact
             path="/addBook"
             component={AddBook}
           />
-          <Route exact path="/book/:id" component={BookDetails} />
-          <Route exact path="/book/:id/edit" component={EditBook} />
+          <SecuredRoute
+            allowedRoles={[roleAdmin]}
+            exact
+            path="/book/:id/edit"
+            component={EditBook}
+          />
 
-          <Route exact path="/statusManager" component={LoanBook} />
+          <SecuredRoute
+            allowedRoles={[roleAdmin]}
+            exact
+            path="/statusManager"
+            component={LoanBook}
+          />
         </div>
       </Router>
     </Provider>

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import BookDoesntExist from "./BookDoesntExist";
 import ReservationButton from "./ReservationButton";
 import BookStatusTable from "./BookStatus/BookStatusTable";
+import AddReview from "./BookStatus/AddReview";
 
 class BookDetails extends Component {
   constructor() {
@@ -53,14 +54,6 @@ class BookDetails extends Component {
     }
   }
 
-  // checkReservation(book) {
-  //   console.log("CEHCK RESERVATION: ");
-
-  //   this.setState({
-  //     reserved: book.reservations.some(item => item.bookISBN === book.isbn)
-  //   });
-  // }
-
   render() {
     const { id } = this.props.match.params;
     const { book } = this.props.book;
@@ -69,21 +62,41 @@ class BookDetails extends Component {
     let pageContent;
     let checkRes = false;
 
-    // if (book.reservations) {
-    //   //checkRes = book.reservations.some(item => item.bookISBN === book.isbn);
-    //   // console.log("CEHCKRES:::", checkRes);
-    //   // if (checkRes !== this.state.reserved) {
-    //   //   this.setState({ reserved: checkRes });
-    //   // }
-    //   this.checkReservation(book);
-    // }
-
     if (errors.isbn) {
       pageContent = <BookDoesntExist error={errors.isbn} />;
     } else if (errors.availableCopies) {
       // Tmp, I will fix it
       pageContent = <BookDoesntExist error={errors.availableCopies} />;
     } else {
+      let employeeButtons = (
+        <div className="pt-2">
+          <Link
+            to={{
+              pathname: `/statusManager`,
+              state: {
+                book_isbn: book.isbn,
+                username: ""
+              }
+            }}
+            className="btn btn-block btn-info"
+          >
+            Create Loan
+          </Link>
+          <Link
+            to={`/book/${book.isbn}/edit`}
+            className="btn btn-block btn-secondary"
+          >
+            Edit
+          </Link>
+          <button
+            className="btn btn-block btn-danger"
+            onClick={this.onDelete.bind(this, id)}
+          >
+            Delete
+          </button>
+        </div>
+      );
+
       pageContent = (
         <div>
           <h4 style={{ fontWeight: "bold" }}>{book.title}</h4>
@@ -135,28 +148,18 @@ class BookDetails extends Component {
 
             <div className="col-md-3 bookDetailsBorder">
               <div className="pt-2">
-                {/* 
-              <p style={{ fontSize: "25px" }}>
-                <i className="fa fa-check-circle-o" />
-                Available: 1
-              </p>
-            */}
-                <p style={{ fontSize: "25px" }}>
-                  <i className="fa fa-times" /> Not Available
-                </p>
-
-                <Link
-                  to={{
-                    pathname: `/statusManager`,
-                    state: {
-                      book_isbn: book.isbn,
-                      username: ""
-                    }
-                  }}
-                  className="btn btn-block btn-info"
+                <p
+                  style={{ color: book.copiesLeft > 0 ? "green" : "red" }}
+                  className="bookDetailsAvailable"
                 >
-                  Create Loan
-                </Link>
+                  <i
+                    className={
+                      "fa " +
+                      (book.copiesLeft > 0 ? "fa-check-circle" : "fa-times")
+                    }
+                  />
+                  {book.copiesLeft > 0 ? " Available" : " Not Available"}
+                </p>
 
                 <ReservationButton
                   reserved={this.state.reserved}
@@ -164,20 +167,7 @@ class BookDetails extends Component {
                 />
               </div>
 
-              <div className="pt-2">
-                <Link
-                  to={`/book/${book.isbn}/edit`}
-                  className="btn btn-block btn-secondary"
-                >
-                  Edit
-                </Link>
-                <button
-                  className="btn btn-block btn-danger"
-                  onClick={this.onDelete.bind(this, id)}
-                >
-                  Delete
-                </button>
-              </div>
+              {this.props.security.role === "ROLE_EMPLOYEE" && employeeButtons}
 
               <p style={{ fontSize: "25px" }}>Rate book:</p>
               <div id="rate">
@@ -206,6 +196,7 @@ class BookDetails extends Component {
               />
             )}
           </div>
+          <AddReview />
         </div>
       );
     }
@@ -219,12 +210,14 @@ BookDetails.propTypes = {
   getBook: PropTypes.func.isRequired,
   deleteBook: PropTypes.func.isRequired,
   addReservation: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  security: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   book: state.book,
-  errors: state.errors
+  errors: state.errors,
+  security: state.security
 });
 
 export default connect(

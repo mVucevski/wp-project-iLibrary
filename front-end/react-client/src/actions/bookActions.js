@@ -18,11 +18,19 @@ export const addBook = (book, history) => async dispatch => {
 };
 
 export const getBooks = () => async dispatch => {
-  const response = await axios.get("/api/book/all");
-  dispatch({
-    type: GET_BOOKS,
-    payload: response.data
-  });
+  try {
+    const response = await axios.get("/api/book/all");
+
+    dispatch({
+      type: GET_BOOKS,
+      payload: response.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
 };
 
 export const getBook = (isbn, history) => async dispatch => {
@@ -65,6 +73,19 @@ export const updateBook = (isbn, updatedBook, history) => async dispatch => {
       type: GET_ERRORS,
       payload: {}
     });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};
+
+export const addReview = (isbn, review) => async dispatch => {
+  try {
+    const response = await axios.post(`/api/rating/${isbn}`, review);
+
+    dispatch(getBook(isbn, "null"));
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
