@@ -2,12 +2,13 @@ import {
   GET_BOOK,
   GET_BOOKS,
   DELETE_BOOK,
-  ADD_RESERVATION
+  GET_REVIEWS
 } from "../actions/types";
 
 const initialState = {
   books: [],
-  book: {}
+  book: {},
+  reviews: []
 };
 
 export default function(state = initialState, action) {
@@ -27,14 +28,10 @@ export default function(state = initialState, action) {
         ...state,
         books: state.books.filter(b => b.isbn !== action.payload)
       };
-    case ADD_RESERVATION:
-      // const updatedBook = {
-      //   ...state.book,
-      //   reservations:
-      // }
-
+    case GET_REVIEWS:
       return {
-        ...state
+        ...state,
+        reviews: action.payload
       };
 
     default:

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import StarRating from "./StarRating";
 
 class BookItem extends Component {
   render() {
@@ -21,14 +22,11 @@ class BookItem extends Component {
               <div className="card-body h-100">
                 <div className="card-title card-Title">{book.title}</div>
                 <div className="card-text card-Author">{book.authorName}</div>
-                <div className="star-ratings-sprite">
-                  <span
-                    style={{ width: "70%" }}
-                    className="star-ratings-sprite-rating"
-                  />
+
+                <StarRating rating={book.totalRatingScore} />
+                <div className="card-text">
+                  Available: {book.copiesLeft > 0 ? "Yes" : "No"}
                 </div>
-                <div className="card-text">Available: Yes</div>
-                <div className="card-text card-price">$15</div>
               </div>
             </div>
           </Link>
@@ -40,7 +38,7 @@ class BookItem extends Component {
             */}
 
             <button className="btn btn-success btn-block api-add-to-cart">
-              Save
+              See More
             </button>
           </div>
         </div>

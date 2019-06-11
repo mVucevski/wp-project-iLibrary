@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_ERRORS, GET_BOOKS, GET_BOOK, DELETE_BOOK } from "./types";
+import {
+  GET_ERRORS,
+  GET_BOOKS,
+  GET_BOOK,
+  DELETE_BOOK,
+  GET_REVIEWS
+} from "./types";
 
 export const addBook = (book, history) => async dispatch => {
   try {
@@ -86,6 +92,22 @@ export const addReview = (isbn, review) => async dispatch => {
     const response = await axios.post(`/api/rating/${isbn}`, review);
 
     dispatch(getBook(isbn, "null"));
+    dispatch(getReviews(isbn));
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};
+
+export const getReviews = isbn => async dispatch => {
+  try {
+    const response = await axios.get(`/api/rating/${isbn}`);
+    dispatch({
+      type: GET_REVIEWS,
+      payload: response.data
+    });
   } catch (error) {
     dispatch({
       type: GET_ERRORS,

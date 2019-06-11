@@ -3,6 +3,7 @@ import BookItem from "../Book/BookItem";
 import { connect } from "react-redux";
 import { getBooks } from "../../actions/bookActions";
 import PropTypes from "prop-types";
+import StarRating from "../Book/StarRating";
 
 class Home extends Component {
   componentDidMount() {

@@ -45,6 +45,9 @@
 }
 
 .card-Title {
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
   font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,32 +56,36 @@
   max-height: 50px;
   height: 50px;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
   font-weight: bold;
 }
 
 .card-Author {
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   max-height: 50px;
   height: 50px;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 
-.star-ratings-sprite {
-  background: url("../assets/img/star.png") repeat-x;
+.star-ratings-sprite::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f005";
   width: 110px;
   display: inline-block;
 }
 
-.star-ratings-sprite-rating {
-  background: url("../assets/img/star.png") repeat-x;
+.star-ratings-sprite-rating::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f005";
   background-position: 0 100%;
   height: 21px;
   display: block;
 }
+
 .boja {
   text-align: center;
   color: white;

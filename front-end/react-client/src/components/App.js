@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min";
 import "./App.css";
+import "./Stars.css";
 import Home from "./Home/Home";
 import Header from "./Layout/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -18,6 +19,7 @@ import setJWTToken from "../securityUtils/setJWTToken";
 import Register from "./UserManagment/Register";
 import Login from "./UserManagment/Login";
 import SecuredRoute from "../securityUtils/SecuredRoute";
+import starRating from "./Book/StarRating";
 
 const jwtToken = localStorage.jwtToken;
 const userRole = localStorage.userRole;

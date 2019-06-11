@@ -10,7 +10,9 @@ import { Link } from "react-router-dom";
 import BookDoesntExist from "./BookDoesntExist";
 import ReservationButton from "./ReservationButton";
 import BookStatusTable from "./BookStatus/BookStatusTable";
-import AddReview from "./BookStatus/AddReview";
+import AddReview from "./BookReviews/AddReview";
+import StarRating from "./StarRating";
+import BookReviewsList from "./BookReviews/BookReviewsList";
 
 class BookDetails extends Component {
   constructor() {
@@ -34,6 +36,8 @@ class BookDetails extends Component {
     console.log("WILL RECIVE PROPS", nextProps);
 
     const { book } = this.props.book;
+
+    console.log("BOOK SCORE:", book.TotalRatingScore);
 
     if (book.reservations) {
       this.setState({
@@ -127,13 +131,12 @@ class BookDetails extends Component {
               </p>
               <div className="lh">
                 <strong>Rating:</strong>
-                <div className="star-ratings-sprite">
-                  <span
-                    style={{ width: "70%" }}
-                    className="star-ratings-sprite-rating"
-                  />
-                </div>
-                <span>5/5</span>
+                <StarRating rating={book.totalRatingScore} />
+                {book.totalRatingScore === 0 ? (
+                  " No ratings yet!"
+                ) : (
+                  <span>{book.totalRatingScore} / 5</span>
+                )}
               </div>
               <br />
               <p className="lh">
@@ -196,7 +199,8 @@ class BookDetails extends Component {
               />
             )}
           </div>
-          <AddReview />
+          <hr />
+          {book.reservations && <BookReviewsList isbn={book.isbn} />}
         </div>
       );
     }
