@@ -1,15 +1,26 @@
 import React, { Component } from "react";
 
 class AddReview extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    console.log("ADD REVIEW ROPS:", props);
+
     this.state = {
-      rating: "",
-      comment: ""
+      rating: props.oldReview.rating + "",
+      comment: props.oldReview.comment
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.oldReview) {
+      this.setState({
+        rating: nextProps.oldReview.rating + "",
+        comment: nextProps.oldReview.comment
+      });
+    }
   }
 
   onChange(e) {
@@ -22,9 +33,8 @@ class AddReview extends Component {
       rating: this.state.rating,
       comment: this.state.comment
     };
-
-    console.log("REVIEW:", updatedReview);
     this.props.addReview(updatedReview);
+    this.props.onSubmited();
   }
 
   render() {
@@ -41,6 +51,7 @@ class AddReview extends Component {
                   name="rating"
                   value="5"
                   onChange={this.onChange}
+                  checked={this.state.rating === "5"}
                 />
                 <label htmlFor="star5" title="5 star">
                   <i className="fas fa-star" />
@@ -51,6 +62,7 @@ class AddReview extends Component {
                   name="rating"
                   value="4"
                   onChange={this.onChange}
+                  checked={this.state.rating === "4"}
                 />
                 <label htmlFor="star4" title="4 star">
                   <i className="fas fa-star" />
@@ -61,6 +73,7 @@ class AddReview extends Component {
                   name="rating"
                   value="3"
                   onChange={this.onChange}
+                  checked={this.state.rating === "3"}
                 />
                 <label htmlFor="star3" title="3 star">
                   <i className="fas fa-star" />
@@ -71,6 +84,7 @@ class AddReview extends Component {
                   name="rating"
                   value="2"
                   onChange={this.onChange}
+                  checked={this.state.rating === "2"}
                 />
                 <label htmlFor="star2" title="2 star">
                   <i className="fas fa-star" />
@@ -81,6 +95,7 @@ class AddReview extends Component {
                   name="rating"
                   value="1"
                   onChange={this.onChange}
+                  checked={this.state.rating === "1"}
                 />
                 <label htmlFor="star1" title="1 star">
                   <i className="fas fa-star" />

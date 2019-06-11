@@ -5,7 +5,7 @@ import "./App.css";
 import "./Stars.css";
 import Home from "./Home/Home";
 import Header from "./Layout/Header";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AddBook from "./Book/AddBook";
 import { Provider } from "react-redux";
 import store from "../store";
@@ -60,32 +60,34 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
 
-          <SecuredRoute
-            allowedRoles={[roleAdmin, roleUser]}
-            exact
-            path="/book/:id"
-            component={BookDetails}
-          />
+          <Switch>
+            <SecuredRoute
+              allowedRoles={[roleAdmin, roleUser]}
+              exact
+              path="/book/:id"
+              component={BookDetails}
+            />
 
-          <SecuredRoute
-            allowedRoles={[roleAdmin]}
-            exact
-            path="/addBook"
-            component={AddBook}
-          />
-          <SecuredRoute
-            allowedRoles={[roleAdmin]}
-            exact
-            path="/book/:id/edit"
-            component={EditBook}
-          />
+            <SecuredRoute
+              allowedRoles={[roleAdmin]}
+              exact
+              path="/addBook"
+              component={AddBook}
+            />
+            <SecuredRoute
+              allowedRoles={[roleAdmin]}
+              exact
+              path="/book/:id/edit"
+              component={EditBook}
+            />
 
-          <SecuredRoute
-            allowedRoles={[roleAdmin]}
-            exact
-            path="/statusManager"
-            component={LoanBook}
-          />
+            <SecuredRoute
+              allowedRoles={[roleAdmin]}
+              exact
+              path="/statusManager"
+              component={LoanBook}
+            />
+          </Switch>
         </div>
       </Router>
     </Provider>

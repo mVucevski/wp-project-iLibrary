@@ -7,7 +7,7 @@ const ReservationButton = props => {
   if (props.reserved) {
     buttonText = (
       <div>
-        <i className="fa fa-minus-circle" />
+        <i className="fa fa-minus-circle mr-1" />
         Remove Reservation
       </div>
     );

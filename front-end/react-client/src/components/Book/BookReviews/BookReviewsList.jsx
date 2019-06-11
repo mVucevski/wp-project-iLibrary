@@ -9,6 +9,12 @@ class BookReviewsList extends Component {
   constructor(props) {
     super();
 
+    this.state = {
+      show: false,
+      addEdit: false,
+      errors: ""
+    };
+
     console.log("CONSTRUTOR:", props);
   }
 
@@ -28,22 +34,64 @@ class BookReviewsList extends Component {
     }
   }
 
+  onShow() {
+    this.setState({
+      show: !this.state.show
+    });
+  }
+
+  onShowAddEdit() {
+    this.setState({
+      addEdit: !this.state.addEdit
+    });
+  }
+
   render() {
     const { reviews } = this.props.book;
+    const { user } = this.props.security;
 
     let counter = 1;
     let reviewList = "";
+    let userReview;
 
     if (reviews) {
-      reviewList = reviews.map(r => <ReviewItem key={counter} item={r} />);
+      reviewList = reviews.map(r => <ReviewItem key={counter++} item={r} />);
+      userReview = reviews.find(e => e.username === user.username);
+      console.log("RENDERRRRR--------------:", userReview);
     }
+
+    let buttons = (
+      <div className="text-center">
+        <button onClick={this.onShow.bind(this)} className="btn btn-warning">
+          {this.state.show === false ? "Show Reviews" : "Hide Reviews"}
+        </button>
+        <button
+          hidden={this.state.addEdit}
+          onClick={this.onShowAddEdit.bind(this)}
+          className="ml-2 btn btn-success"
+        >
+          Add/Edit Review
+        </button>
+      </div>
+    );
 
     return (
       <div>
-        <h4>Your Review</h4>
-        <AddReview addReview={this.onAddReview.bind(this)} />
+        {buttons}
+        {this.state.addEdit && (
+          <span>
+            <h4>Your Review</h4>
+
+            <AddReview
+              oldReview={userReview}
+              addReview={this.onAddReview.bind(this)}
+              onSubmited={this.onShowAddEdit.bind(this)}
+            />
+          </span>
+        )}
+
         <br />
-        {reviewList}
+        {this.state.show && reviewList}
       </div>
     );
   }
@@ -53,12 +101,14 @@ BookReviewsList.propTypes = {
   book: PropTypes.object.isRequired,
   getReviews: PropTypes.func.isRequired,
   addReview: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  security: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   book: state.book,
-  errors: state.errors
+  errors: state.errors,
+  security: state.security
 });
 
 export default connect(

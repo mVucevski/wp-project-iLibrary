@@ -16,7 +16,7 @@ const SecuredRoute = ({ component: Component, security, ...otherProps }) => {
             <h3>YOU DONT HAVE THE PRIVILEGES FOR THIS PART OF THE SITE</h3>
           )
         ) : (
-          <Redirect to="login" />
+          <Redirect to="/login" />
         )
       }
     />

@@ -130,12 +130,12 @@ class BookDetails extends Component {
                 <strong>Available as e-Book: </strong> No
               </p>
               <div className="lh">
-                <strong>Rating:</strong>
+                <strong>Rating: </strong>
                 <StarRating rating={book.totalRatingScore} />
                 {book.totalRatingScore === 0 ? (
                   " No ratings yet!"
                 ) : (
-                  <span>{book.totalRatingScore} / 5</span>
+                  <span className="ml-1">{book.totalRatingScore}/5</span>
                 )}
               </div>
               <br />
@@ -171,21 +171,6 @@ class BookDetails extends Component {
               </div>
 
               {this.props.security.role === "ROLE_EMPLOYEE" && employeeButtons}
-
-              <p style={{ fontSize: "25px" }}>Rate book:</p>
-              <div id="rate">
-                {/* 
-                        @Html.ActionLink("1", "Rate", new { id = Model.ID, rating = 1 }, new { @className = "btn btn-outline-secondary" })
-                            @Html.ActionLink("2", "Rate", new { id = Model.ID, rating = 2 }, new { @className = "btn btn-outline-secondary" })
-                            @Html.ActionLink("3", "Rate", new { id = Model.ID, rating = 3 }, new { @className = "btn btn-outline-secondary" })
-                            @Html.ActionLink("4", "Rate", new { id = Model.ID, rating = 4 }, new { @className = "btn btn-outline-secondary" })
-                            @Html.ActionLink("5", "Rate", new { id = Model.ID, rating = 5 }, new { @className = "btn btn-outline-secondary" })
-                        
-                        
-                        
-                          */}
-                click to rate
-              </div>
             </div>
           </div>
 
