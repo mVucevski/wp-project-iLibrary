@@ -19,3 +19,4 @@ export const RETURN_LOANED_BOOK = "RETURN_LOANED_BOOK";
 
 //Types for Security Actions
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const GET_USER_INFO = "GET_USER_INFO";

@@ -20,6 +20,7 @@ import Register from "./UserManagment/Register";
 import Login from "./UserManagment/Login";
 import SecuredRoute from "../securityUtils/SecuredRoute";
 import starRating from "./Book/StarRating";
+import UserDetails from "./UserManagment/UserDetails";
 
 const jwtToken = localStorage.jwtToken;
 const userRole = localStorage.userRole;
@@ -87,6 +88,7 @@ function App() {
               path="/statusManager"
               component={LoanBook}
             />
+            <Route exact path="/userInfo" component={UserDetails} />
           </Switch>
         </div>
       </Router>

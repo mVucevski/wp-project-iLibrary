@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, GET_USER_INFO } from "./types";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
 
@@ -68,4 +68,19 @@ export const logout = () => dispatch => {
     type: SET_CURRENT_USER,
     payload: {}
   });
+};
+
+export const getUserInfo = username => async dispatch => {
+  try {
+    let response;
+    if (username === undefined || username === "") {
+      response = await axios.get("/api/users/currentUser");
+    } else {
+      response = await axios.get("/api/users/${username}");
+    }
+    dispatch({
+      type: GET_USER_INFO,
+      payload: response.data
+    });
+  } catch (error) {}
 };

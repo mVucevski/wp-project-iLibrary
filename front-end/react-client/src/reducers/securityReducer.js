@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from "../actions/types";
+import { SET_CURRENT_USER, GET_USER_INFO } from "../actions/types";
 
 const initialState = {
   user: {},
@@ -25,7 +25,11 @@ export default function(state = initialState, action) {
         user: action.payload.user,
         role: action.payload.role
       };
-
+    case GET_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.payload
+      };
     default:
       return state;
   }

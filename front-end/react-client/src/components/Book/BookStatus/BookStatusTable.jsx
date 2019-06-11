@@ -15,7 +15,7 @@ class BookStatusTable extends Component {
     ));
 
     return (
-      <div className={"col-md-9"}>
+      <div className="col-md-9">
         <table className="table table-sm">
           <thead>
             <tr>

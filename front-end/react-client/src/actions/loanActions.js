@@ -15,8 +15,6 @@ export const addLoan = (isbn, username) => async dispatch => {
       payload: {}
     });
   } catch (error) {
-    console.log("LOANACTION ERROR: ", error);
-
     dispatch({
       type: GET_ERRORS,
       payload: error.response.data
