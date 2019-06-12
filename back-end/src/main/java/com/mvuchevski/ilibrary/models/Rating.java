@@ -33,11 +33,11 @@ public class Rating {
 
     private String username;
 
-    @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     @Column(columnDefinition="DATETIME")
     private LocalDateTime created_At;
 
-    @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     @Column(columnDefinition="DATETIME")
     private LocalDateTime updated_At;
 

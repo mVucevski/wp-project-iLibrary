@@ -1,21 +1,25 @@
 import React from "react";
+import { dateConverter } from "../../../dateFormatter";
 
 const BookStatusItem = props => {
   const { item, id } = props;
-  console.log("ITENL: ", props);
+
   let type = "Reservation";
   let trColor = "table-warning";
+
+  let endDate = item.end_At;
 
   if (item.due_date) {
     type = "Loan";
     trColor = "table-danger";
+    endDate = item.due_date;
   }
 
   return (
     <tr className={trColor}>
       <td>{id}</td>
-      <td>{item.created_At}</td>
-      <td>{item.end_At || item.due_date}</td>
+      <td>{dateConverter(item.created_At)}</td>
+      <td>{dateConverter(endDate)}</td>
       <td>{type}</td>
     </tr>
   );

@@ -5,10 +5,17 @@ class AddReview extends Component {
     super(props);
     console.log("ADD REVIEW ROPS:", props);
 
-    this.state = {
-      rating: props.oldReview.rating + "",
-      comment: props.oldReview.comment
-    };
+    if (props.oldReview) {
+      this.state = {
+        rating: props.oldReview.rating + "",
+        comment: props.oldReview.comment
+      };
+    } else {
+      this.state = {
+        rating: "",
+        comment: ""
+      };
+    }
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);

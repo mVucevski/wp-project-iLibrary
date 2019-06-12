@@ -13,6 +13,7 @@ import BookStatusTable from "./BookStatus/BookStatusTable";
 import AddReview from "./BookReviews/AddReview";
 import StarRating from "./StarRating";
 import BookReviewsList from "./BookReviews/BookReviewsList";
+import { dateConverter } from "../../dateFormatter";
 
 class BookDetails extends Component {
   constructor() {
@@ -33,12 +34,9 @@ class BookDetails extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    console.log("WILL RECIVE PROPS", nextProps);
 
     const { book } = this.props.book;
     const { user } = this.props.security;
-
-    console.log("BOOK SCORE:", book.TotalRatingScore);
 
     if (book.reservations) {
       this.setState({
@@ -143,10 +141,8 @@ class BookDetails extends Component {
               </div>
               <br />
               <p className="lh">
-                <strong>Publication date:</strong> {book.publicationDate}
-              </p>
-              <p className="lh">
-                <strong>Seller: </strong> SellerName
+                <strong>Publication date:</strong>{" "}
+                {dateConverter(book.publicationDate)}
               </p>
               <strong>Description:</strong>
               <p>{book.description}</p>
@@ -188,7 +184,7 @@ class BookDetails extends Component {
             )}
           </div>
           <hr />
-          {book.reservations && <BookReviewsList isbn={book.isbn} />}
+          {book.reservations && <BookReviewsList isbn={id} />}
         </div>
       );
     }

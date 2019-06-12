@@ -15,7 +15,7 @@ class Home extends Component {
 
     return (
       <div className="container my-2">
-        <h3>Bestselling Books</h3>
+        <h3>Latest Books</h3>
         <hr />
         <div className="row my-3">
           {books.map(book => (

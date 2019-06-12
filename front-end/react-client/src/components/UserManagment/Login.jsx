@@ -91,7 +91,9 @@ class Login extends Component {
                     <div className="invalid-feedback">{errors.password}</div>
                   )}
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <button type="submit" className="btn btn-info btn-block mt-4">
+                  Submit
+                </button>
               </form>
             </div>
           </div>

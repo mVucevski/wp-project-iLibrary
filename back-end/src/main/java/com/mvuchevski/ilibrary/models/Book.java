@@ -48,14 +48,14 @@ public class Book {
     @Size(min=10, max=13, message = "Please use valid ISBN")
     private String isbn;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
 
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     @Column(updatable = false)
     private Date created_At;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     private Date updated_At;
 
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)

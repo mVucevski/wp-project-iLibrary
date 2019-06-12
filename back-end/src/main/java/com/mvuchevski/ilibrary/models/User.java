@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Transient
     private String confirmPassword;
 
-    @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     private LocalDateTime membershipExpirationDate;
 
     private Date create_At;

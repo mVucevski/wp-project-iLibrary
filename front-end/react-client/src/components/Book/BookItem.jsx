@@ -7,7 +7,7 @@ class BookItem extends Component {
     const { book } = this.props;
     return (
       <div className="col-lg-2 col-md-4 mb-4 d-flex align-items-stretch">
-        <div className="card h-100">
+        <div className="card h-100 my-card">
           <Link
             to={`/book/${book.isbn}`}
             style={{ textDecoration: "none" }}
@@ -37,9 +37,13 @@ class BookItem extends Component {
           </button> 
             */}
 
-            <button className="btn btn-success btn-block api-add-to-cart">
+            <Link
+              to={`/book/${book.isbn}`}
+              style={{ textDecoration: "none" }}
+              className="btn btn-success btn-block api-add-to-cart"
+            >
               See More
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserInfo } from "../../actions/securityActions";
+import ReseravtionsTable from "./UserDetailsItems/ReseravtionsTable";
 
 class UserDetails extends Component {
   constructor() {
@@ -41,7 +42,7 @@ class UserDetails extends Component {
         <div className="container my-2">
           <div className="row">
             <div className="col-md-12">
-              <div className="card border-primary text-primary">
+              <div className="card border-success">
                 <h5 className="card-header">User Info</h5>
                 <div className="card-body">
                   <div>
@@ -92,6 +93,21 @@ class UserDetails extends Component {
                 <div className="card-body">
                   <div className="row">
                     {userInfo.loans && <LoansTable loans={userInfo.loans} />}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-2">
+            <div className="col-md-12">
+              <div className="card border-info text-info">
+                <h5 className="card-header">Reservations</h5>
+                <div className="card-body">
+                  <div className="row">
+                    {userInfo.reservations && (
+                      <ReseravtionsTable reservations={userInfo.reservations} />
+                    )}
                   </div>
                 </div>
               </div>

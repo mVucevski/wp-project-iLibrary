@@ -16,6 +16,7 @@ class LoanBook extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmitMembership = this.onSubmitMembership.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +44,16 @@ class LoanBook extends Component {
   }
 
   onSubmit(e) {
+    e.preventDefault();
+    const createdLoan = {
+      book_isbn: this.state.book_isbn,
+      username: this.state.username
+    };
+
+    this.props.addLoan(this.state.book_isbn, this.state.username);
+  }
+
+  onSubmitMembership(e) {
     e.preventDefault();
     const createdLoan = {
       book_isbn: this.state.book_isbn,
@@ -110,6 +121,40 @@ class LoanBook extends Component {
         {loan.bookISBN && (
           <LoanDetails loan={loan} username={this.state.username} />
         )}
+
+        <div className="row">
+          <div className="col-md-12">
+            <div className="card">
+              <h5 className="card-header">Membership Application</h5>
+              <div className="card-body">
+                <form onSubmit={this.onSubmitMembership}>
+                  <div className="form-row">
+                    <div className="col-md-5">
+                      <label htmlFor="username">Username</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="User's E-Mail"
+                        name="username"
+                        value={this.state.username}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="col-md-2">
+                      <label htmlFor="m">&nbsp;</label>
+                      <button
+                        type="submit"
+                        className="btn btn-success form-control"
+                      >
+                        Add Membership
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

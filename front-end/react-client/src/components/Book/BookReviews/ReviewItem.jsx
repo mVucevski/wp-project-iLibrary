@@ -1,5 +1,6 @@
 import React from "react";
 import StarRating from "../StarRating";
+import { dateConverter } from "../../../dateFormatter";
 
 const ReviewItem = props => {
   const { item } = props;
@@ -13,7 +14,9 @@ const ReviewItem = props => {
           <StarRating rating={item.rating} />{" "}
         </span>
         <div className="col-md-4 text-success">
-          <small className="center-block">{item.created_At}</small>
+          <small className="center-block">
+            {dateConverter(item.created_At)}
+          </small>
         </div>
       </div>
 

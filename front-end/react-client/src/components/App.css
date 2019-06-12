@@ -147,3 +147,7 @@
   display: block;
   text-align: center;
 }
+
+.my-card {
+  width: 140px !important;
+}

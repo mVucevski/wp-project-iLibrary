@@ -31,11 +31,11 @@ public class Reservation {
 
     private String username;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     @Column(columnDefinition="DATETIME")
     private Date created_At;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+01:00")
     private Date end_At;
 
     // Every time the entity is created

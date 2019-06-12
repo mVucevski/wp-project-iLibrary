@@ -30,7 +30,7 @@ class Header extends Component {
                 <form className="form-inline">
                   <input
                     className="form-control mr-sm-2"
-                    style={{ width: "70%" }}
+                    style={{ width: "80%" }}
                     type="search"
                     name="search"
                     id="search"
@@ -51,16 +51,6 @@ class Header extends Component {
               <div className="col-md-3">
                 <div className="float-left float-md-right float-sm-left float-xl-right float-lg-right">
                   <CreateBookButton />
-                  <i className="fa fa-heart pl-4 navIcons add-pointer">
-                    <strong style={{ fontSize: "15px", display: "flex" }}>
-                      Wishlist
-                    </strong>
-                  </i>
-                  <i className="fa fa-shopping-cart pl-4 navIcons add-pointer">
-                    <strong style={{ fontSize: "15px", display: "flex" }}>
-                      3 Items
-                    </strong>
-                  </i>
                 </div>
               </div>
             </div>

@@ -14,11 +14,11 @@ class BookReviewsList extends Component {
       addEdit: false,
       errors: ""
     };
-
-    console.log("CONSTRUTOR:", props);
   }
 
   componentDidMount() {
+    console.log("BOOKREVIEWSLIST ISBN:", this.props.isbn);
+
     this.props.getReviews(this.props.isbn);
   }
 
@@ -57,7 +57,6 @@ class BookReviewsList extends Component {
     if (reviews) {
       reviewList = reviews.map(r => <ReviewItem key={counter++} item={r} />);
       userReview = reviews.find(e => e.username === user.username);
-      console.log("RENDERRRRR--------------:", userReview);
     }
 
     let buttons = (
