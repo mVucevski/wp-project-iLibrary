@@ -32,12 +32,15 @@ public class Loan {
     private Integer fee = 0;
 
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @Column(columnDefinition="DATETIME")
     private LocalDateTime created_At;
 
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @Column(columnDefinition="DATETIME")
     private LocalDateTime due_date;
 
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @Column(columnDefinition="DATETIME")
     private LocalDateTime returned_At;
 
     @PrePersist

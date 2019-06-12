@@ -25,6 +25,7 @@ public class Book {
     @NotBlank(message = "Author's name is required")
     private String authorName;
 
+    @Column(length = 1000)
     private String description;
 
     private String language;

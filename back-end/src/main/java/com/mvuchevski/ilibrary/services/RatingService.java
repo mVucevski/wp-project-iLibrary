@@ -33,9 +33,15 @@ public class RatingService {
             }
         }else{
             Optional<Rating> updatedRating = user.getRatings().stream().filter(e->e.getBook().getIsbn().equals(book_isbn)).findAny();
-            updatedRating.ifPresent(e->rating.setId(e.getId()));
+            //updatedRating.ifPresent(e->rating.setId(e.getId()));
+            if(updatedRating.isPresent()){
+                updatedRating.get().setRating(rating.getRating());
+                updatedRating.get().setComment(rating.getComment());
+                return saveBook(updatedRating.get(), book, user);
+            }
         }
 
+        rating.setUsername(username);
         return saveBook(rating, book, user);
     }
 
@@ -60,4 +66,5 @@ public class RatingService {
             throw new RatingExcepion("Oopss, there has been a problem with the rating system. Please try again.");
         }
     }
+
 }

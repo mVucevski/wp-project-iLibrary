@@ -6,8 +6,8 @@ public class InvalidLoginResponse {
     private String password;
 
     public InvalidLoginResponse(){
-        this.username = "Invalid Username";
-        this.password = "Invalid Password";
+        this.username = "Your username and password don't match";
+        this.password = "Your username and password don't match";
     }
 
     public String getUsername() {

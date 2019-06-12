@@ -17,12 +17,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.security.Principal;
 
 import static com.mvuchevski.ilibrary.security.SecurityConstants.TOKEN_PREFIX;
 
@@ -81,5 +80,11 @@ public class UserController {
         User newUser = userService.saveUser(user);
 
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/currentUser")
+    public ResponseEntity<?> getCurrentUser(Principal principal){
+        User user = userService.getUser(principal.getName());
+        return new ResponseEntity<User>(user,HttpStatus.OK);
     }
 }

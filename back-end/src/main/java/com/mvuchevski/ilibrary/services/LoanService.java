@@ -42,13 +42,12 @@ public class LoanService {
             throw new LoanNotReturnedException("The user hasn't returned all of his previous books. You must return all of the loaned books before taking a new one.");
         }
 
-        if(book.getCopiesLeft() <= 0){
+        if(user.getReservations().stream().anyMatch(e->e.getBookISBN().equals(book_isbn))){
+            reservationService.deleteResByBookISBN(book_isbn,username);
+        }else if(book.getCopiesLeft() <= 0){
             throw new BookAvailableCopiesException("The Book with ISBN: '" + book_isbn + "' doesn't have available copies at the moment!");
         }
 
-        if(user.getReservations().stream().anyMatch(e->e.getBookISBN().equals(book_isbn))){
-            reservationService.deleteResByBookISBN(book_isbn,username);
-        }
 
         Loan loan = new Loan();
         loan.setBook(book);

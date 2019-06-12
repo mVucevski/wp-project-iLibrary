@@ -31,11 +31,14 @@ public class Rating {
     @JsonIgnore
     private User user;
 
+    private String username;
 
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @Column(columnDefinition="DATETIME")
     private LocalDateTime created_At;
 
     @JsonFormat(pattern = "yyyy-mm-dd", timezone = "GMT+01:00")
+    @Column(columnDefinition="DATETIME")
     private LocalDateTime updated_At;
 
     @PrePersist
@@ -83,6 +86,14 @@ public class Rating {
         this.user = user;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public LocalDateTime getCreated_At() {
         return created_At;
     }
@@ -97,5 +108,13 @@ public class Rating {
 
     public void setUpdated_At(LocalDateTime updated_At) {
         this.updated_At = updated_At;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

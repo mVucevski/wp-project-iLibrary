@@ -32,6 +32,7 @@ public class Reservation {
     private String username;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
+    @Column(columnDefinition="DATETIME")
     private Date created_At;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
