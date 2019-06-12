@@ -8,10 +8,6 @@ import ReseravtionsTable from "./UserDetailsItems/ReseravtionsTable";
 import { dateConverter } from "../../dateFormatter";
 
 class UserDetails extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     this.props.getUserInfo();
   }

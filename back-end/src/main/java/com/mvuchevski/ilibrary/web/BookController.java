@@ -76,4 +76,12 @@ public class BookController {
 
     @GetMapping("/all")
     public Iterable<Book> getAllBooks(){return bookService.findAllBooks();}
+
+    @GetMapping("/search/{keyword}")
+    public Iterable<Book> searchBooks(@PathVariable String keyword){
+        if(keyword == null){
+            return bookService.findAllBooks();
+        }
+
+        return bookService.searchBooks(keyword);}
 }

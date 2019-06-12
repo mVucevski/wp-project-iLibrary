@@ -5,6 +5,24 @@ import { Link } from "react-router-dom";
 import UserManagmentButton from "./UserManagmentButton";
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      search: ""
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div>
@@ -27,25 +45,24 @@ class Header extends Component {
                 </Link>
               </div>
               <div className="col-md-6">
-                <form className="form-inline">
+                <form onSubmit={this.onSubmit} className="form-inline">
                   <input
                     className="form-control mr-sm-2"
                     style={{ width: "80%" }}
                     type="search"
                     name="search"
+                    onChange={this.onChange}
                     id="search"
                     placeholder="Search for books by keyword / title / author / ISBN"
                     aria-label="Search"
                   />
-                  <button
-                    href="#"
+                  <Link
                     style={{ textDecoration: "none" }}
                     className="btn btn-outline-success my-2 my-sm-0"
-                    type="submit"
-                    value="Search"
+                    to={`/book/search/${this.state.search}`}
                   >
                     Search
-                  </button>
+                  </Link>
                 </form>
               </div>
               <div className="col-md-3">

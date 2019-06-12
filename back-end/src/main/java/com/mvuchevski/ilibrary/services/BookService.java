@@ -7,6 +7,7 @@ import com.mvuchevski.ilibrary.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -98,6 +99,13 @@ public class BookService {
         }
 
         return bookRepository.save(updatedBook);
+    }
+
+    public Iterable<Book> searchBooks(String keyword){
+        if(keyword == ""){
+            return bookRepository.findAll();
+        }
+        return bookRepository.findAllByIsbnContainingOrTitleContainingIgnoreCaseOrAuthorNameContainingIgnoreCase(keyword, keyword, keyword);
     }
 
 

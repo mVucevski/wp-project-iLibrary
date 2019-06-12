@@ -115,3 +115,19 @@ export const getReviews = isbn => async dispatch => {
     });
   }
 };
+
+export const searchBooks = keyword => async dispatch => {
+  try {
+    const response = await axios.get(`/api/book/search/${keyword}`);
+
+    dispatch({
+      type: GET_BOOKS,
+      payload: response.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};

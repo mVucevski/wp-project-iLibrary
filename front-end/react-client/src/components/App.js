@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.min";
 import "./App.css";
 import "./Stars.css";
 import Home from "./Home/Home";
+import Search from "./Home/Search";
 import Header from "./Layout/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AddBook from "./Book/AddBook";
@@ -68,7 +69,12 @@ function App() {
               path="/book/:id"
               component={BookDetails}
             />
-
+            <SecuredRoute
+              allowedRoles={[roleAdmin, roleUser]}
+              exact
+              path="/book/search/:id"
+              component={Search}
+            />
             <SecuredRoute
               allowedRoles={[roleAdmin]}
               exact
