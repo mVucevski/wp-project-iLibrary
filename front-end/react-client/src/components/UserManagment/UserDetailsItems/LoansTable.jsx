@@ -2,7 +2,7 @@ import React from "react";
 import LoanTableItem from "./LoanTableItem";
 
 const LoansTable = props => {
-  const { loans } = this.props;
+  const { loans } = props;
   let counter = 1;
 
   const loansTable = loans.map(l => (

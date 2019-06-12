@@ -48,20 +48,24 @@ class UserDetails extends Component {
                     <div className="row mt-2">
                       <div className="col-md-12">
                         <label>Username (E-Mail):</label>
-                        <label className="ml-2">{userInfo.username}</label>
+                        <label className="ml-2 font-weight-bolder">
+                          {userInfo.username}
+                        </label>
                       </div>
                     </div>
                     <div className="row mt-2">
                       <div className="col-md-12">
                         <label>Full Name:</label>
-                        <label className="ml-2">{userInfo.fullName}</label>
+                        <label className="ml-2 font-weight-bolder">
+                          {userInfo.fullName}
+                        </label>
                       </div>
                     </div>
                     <div className="row mt-2">
                       <div className="col-md-12">
                         <label>Membership:</label>
-                        <label className="ml-2">
-                          {userInfo.isMemebershipExpired
+                        <label className="ml-2 font-weight-bolder">
+                          {userInfo.membershipExpirationDate === null
                             ? "Not Active"
                             : "Active"}
                         </label>
@@ -70,7 +74,7 @@ class UserDetails extends Component {
                     <div className="row mt-2">
                       <div className="col-md-12">
                         <label>Membership expiration date:</label>
-                        <label className="ml-2">
+                        <label className="ml-2 font-weight-bolder">
                           {userInfo.membershipExpirationDate}
                         </label>
                       </div>
@@ -81,13 +85,13 @@ class UserDetails extends Component {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row mt-2">
             <div className="col-md-12">
               <div className="card border-primary text-primary">
                 <h5 className="card-header">Loans</h5>
                 <div className="card-body">
                   <div className="row">
-                    {userInfo && <LoansTable loans={userInfo.loans} />}
+                    {userInfo.loans && <LoansTable loans={userInfo.loans} />}
                   </div>
                 </div>
               </div>

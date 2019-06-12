@@ -26,7 +26,7 @@ const LoanDetails = props => {
               </div>
               <div className="card-text row">
                 <div className="col-md-4" style={{ fontWeight: "bold" }}>
-                  {loan.username}
+                  {props.username}
                 </div>
                 <div className="col-md-4" style={{ fontWeight: "bold" }}>
                   {loan.bookISBN}

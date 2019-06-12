@@ -36,12 +36,15 @@ class BookDetails extends Component {
     console.log("WILL RECIVE PROPS", nextProps);
 
     const { book } = this.props.book;
+    const { user } = this.props.security;
 
     console.log("BOOK SCORE:", book.TotalRatingScore);
 
     if (book.reservations) {
       this.setState({
-        reserved: book.reservations.some(item => item.bookISBN === book.isbn)
+        reserved: book.reservations.some(
+          item => item.bookISBN === book.isbn && item.username === user.username
+        )
       });
     }
   }

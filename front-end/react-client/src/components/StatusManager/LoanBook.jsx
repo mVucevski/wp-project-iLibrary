@@ -107,7 +107,9 @@ class LoanBook extends Component {
             )}
           </div>
         </div>
-        {loan.bookISBN && <LoanDetails loan={loan} />}
+        {loan.bookISBN && (
+          <LoanDetails loan={loan} username={this.state.username} />
+        )}
       </div>
     );
   }

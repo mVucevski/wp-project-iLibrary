@@ -37,7 +37,7 @@ class UserManagmentButton extends Component {
     const userIsAuthenticated = (
       <ul className="nav navbar-nav navbar-right">
         <li className="pr-2 py-1">
-          <Link to="/" className="btn btn-outline-secondary">
+          <Link to="/userInfo" className="btn btn-outline-secondary">
             {user ? user.fullName : ""}
           </Link>
         </li>

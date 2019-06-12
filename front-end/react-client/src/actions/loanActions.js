@@ -3,7 +3,7 @@ import { ADD_LOAN, GET_LOAN, GET_ERRORS } from "./types";
 
 export const addLoan = (isbn, username) => async dispatch => {
   try {
-    const response = await axios.post(`api/loan/${isbn}`);
+    const response = await axios.post(`api/loan/${isbn}/${username}`);
 
     dispatch({
       type: GET_LOAN,
