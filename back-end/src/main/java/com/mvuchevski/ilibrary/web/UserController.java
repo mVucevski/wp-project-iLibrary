@@ -11,6 +11,7 @@ import com.mvuchevski.ilibrary.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -87,4 +88,14 @@ public class UserController {
         User user = userService.getUser(principal.getName());
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }
+
+    //@PreAuthorize("hasRole('EMPLOYEE')")
+    @PostMapping("/grantMembership/{username}")
+    public ResponseEntity<?> getCurrentUser(@PathVariable String username){
+        System.out.println("INNN");
+        boolean grantMem = userService.grantMembership(username);
+        return new ResponseEntity<String>("The user '" + username + "' successfully was granted membership.",HttpStatus.OK);
+    }
+
+
 }

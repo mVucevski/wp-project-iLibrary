@@ -2,6 +2,7 @@ package com.mvuchevski.ilibrary.services;
 
 import com.mvuchevski.ilibrary.exceptions.BookAvailableCopiesException;
 import com.mvuchevski.ilibrary.exceptions.LoanNotReturnedException;
+import com.mvuchevski.ilibrary.exceptions.UserMembershipException;
 import com.mvuchevski.ilibrary.models.Book;
 import com.mvuchevski.ilibrary.models.Loan;
 import com.mvuchevski.ilibrary.models.User;
@@ -37,6 +38,10 @@ public class LoanService {
         Book book = bookService.findBookByISBN(book_isbn);
         User user = userService.loadUserByUsername(username);
         Set<Loan> loans = user.getLoans();
+
+        if(user.isMemebershipExpired()){
+            throw new UserMembershipException("Please start or renew your membership before making reservation!");
+        }
 
         if(loans.stream().filter(l->l.getReturned_At()==null).count() >= MAX_LOANS_PER_USER){
             throw new LoanNotReturnedException("The user hasn't returned all of his previous books. You must return all of the loaned books before taking a new one.");

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserInfo } from "../../actions/securityActions";
 import ReseravtionsTable from "./UserDetailsItems/ReseravtionsTable";
+import { dateConverter } from "../../dateFormatter";
 
 class UserDetails extends Component {
   constructor() {
@@ -12,15 +13,6 @@ class UserDetails extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.location.state) {
-    //     const { book_isbn, username } = this.props.location.state;
-
-    //     this.setState({
-    //       ...this.state,
-    //       book_isbn: "" || book_isbn,
-    //       username: "" || username
-    //     });
-    //   }
     this.props.getUserInfo();
   }
 
@@ -28,8 +20,6 @@ class UserDetails extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-
-    console.log("USERDETAILS-nextProps:", nextProps);
   }
 
   render() {
@@ -76,7 +66,7 @@ class UserDetails extends Component {
                       <div className="col-md-12">
                         <label>Membership expiration date:</label>
                         <label className="ml-2 font-weight-bolder">
-                          {userInfo.membershipExpirationDate}
+                          {dateConverter(userInfo.membershipExpirationDate)}
                         </label>
                       </div>
                     </div>

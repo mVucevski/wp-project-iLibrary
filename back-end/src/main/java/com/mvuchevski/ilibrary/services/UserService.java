@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +25,9 @@ public class UserService {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     public User saveUser(User newUser){
         try{
@@ -51,5 +55,22 @@ public class UserService {
 
     public User getUser(String username){
         return  userRepository.findByUsername(username);
+    }
+
+    public boolean grantMembership(String username){
+        User user = userRepository.findByUsername(username);
+
+        if(user == null){
+            throw new UsernameAlreadyExistsException("The user with username: '" + username + "' doesn't exist!");
+        }
+
+        if(!user.isMemebershipExpired()){
+            throw new UsernameAlreadyExistsException("User with username: '" + username + "' is already an active member!");
+        }
+
+        user.setMembershipExpirationDate(LocalDateTime.now().plusYears(1));
+        userRepository.save(user);
+
+        return true;
     }
 }

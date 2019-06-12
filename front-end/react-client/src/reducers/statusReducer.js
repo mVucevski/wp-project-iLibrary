@@ -1,7 +1,8 @@
-import { GET_LOAN } from "../actions/types";
+import { GET_LOAN, GET_MEMBERSHIP } from "../actions/types";
 
 const initialState = {
-  loan: {}
+  loan: {},
+  membership: ""
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loan: action.payload
+      };
+    case GET_MEMBERSHIP:
+      return {
+        ...state,
+        membership: action.payload
       };
     default:
       return state;

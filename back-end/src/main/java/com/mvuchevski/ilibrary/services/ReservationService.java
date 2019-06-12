@@ -3,6 +3,7 @@ package com.mvuchevski.ilibrary.services;
 import com.mvuchevski.ilibrary.exceptions.BookAvailableCopiesException;
 import com.mvuchevski.ilibrary.exceptions.ReservationNotFoundException;
 import com.mvuchevski.ilibrary.exceptions.ReservationsLoansLimitException;
+import com.mvuchevski.ilibrary.exceptions.UserMembershipException;
 import com.mvuchevski.ilibrary.models.Book;
 import com.mvuchevski.ilibrary.models.Reservation;
 import com.mvuchevski.ilibrary.models.User;
@@ -39,6 +40,10 @@ public class ReservationService {
 
         User user = userService.loadUserByUsername(username);
         Set<Reservation> reservations = user.getReservations();
+
+        if(user.isMemebershipExpired()){
+            throw new UserMembershipException("Please start or renew your membership before making reservation!");
+        }
 
         if(reservations.size() >= MAX_RESERVATIONS_PER_USER){
             throw new ReservationsLoansLimitException("You have reached the limit of active reservations!");
