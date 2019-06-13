@@ -110,7 +110,11 @@ class BookDetails extends Component {
 
           <div className="row py-4">
             <div className="col-md-3">
-              <img src={book.coverUrl} className="img-fluid" alt="" />
+              <img
+                src={`http://localhost:8080/api/book/image/${book.coverUrl}`}
+                className="img-fluid"
+                alt=""
+              />
             </div>
             <div className="col-md-6">
               <p className="lh">

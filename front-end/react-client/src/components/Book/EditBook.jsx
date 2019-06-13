@@ -211,6 +211,7 @@ class EditBook extends Component {
                         name="coverUrl"
                         value={this.state.coverUrl}
                         onChange={this.onChange}
+                        disabled
                       />
                       {errors.coverUrl && (
                         <div className="invalid-feedback">

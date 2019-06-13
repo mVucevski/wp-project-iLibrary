@@ -16,7 +16,7 @@ class BookItem extends Component {
             <div className="card add-pointer">
               <img
                 className="card-img-top card-img"
-                src={book.coverUrl}
+                src={`http://localhost:8080/api/book/image/${book.coverUrl}`}
                 alt=""
               />
               <div className="card-body h-100">

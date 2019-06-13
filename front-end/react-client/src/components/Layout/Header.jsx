@@ -91,42 +91,34 @@ class Header extends Component {
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav" style={{ fontWeight: "bold" }}>
                 <li className="nav-item">
-                  <a
+                  <Link
                     className="nav-link"
-                    href="/"
-                    style={{ textDecoration: "none" }}
-                    alt=""
-                  >
-                    Bestsellers
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/"
+                    to="/"
                     style={{ textDecoration: "none" }}
                     alt=""
                   >
                     Latest Deals
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a
+                  <Link
                     className="nav-link"
-                    href="/"
+                    to="/book/category/Non-Fiction"
                     style={{ textDecoration: "none" }}
+                    alt=""
                   >
-                    Trade Section
-                  </a>
+                    Non-Fiction
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a
+                  <Link
                     className="nav-link"
-                    href="/"
+                    to="/book/category/Fantasy"
                     style={{ textDecoration: "none" }}
+                    alt=""
                   >
-                    Surprise Me
-                  </a>
+                    Fantasy
+                  </Link>
                 </li>
                 <li className="nav-item dropdown">
                   <a
@@ -143,24 +135,30 @@ class Header extends Component {
                     className="dropdown-menu dropdown-menu-right"
                     aria-labelledby="navbarDropdownPortfolio"
                   >
-                    <a className="dropdown-item" href="/">
+                    <Link className="dropdown-item" to="/book/category/Fiction">
                       Fiction
-                    </a>
-                    <a className="dropdown-item" href="/">
+                    </Link>
+                    <Link
+                      className="dropdown-item"
+                      to="/book/category/Non-Fiction"
+                    >
                       Non-Fiction
-                    </a>
-                    <a className="dropdown-item" href="/">
+                    </Link>
+                    <Link
+                      className="dropdown-item"
+                      to="/book/category/Thriller"
+                    >
                       Crime & Thriller
-                    </a>
-                    <a className="dropdown-item" href="/">
+                    </Link>
+                    <Link className="dropdown-item" to="/book/category/Fantasy">
                       Fantasy
-                    </a>
-                    <a className="dropdown-item" href="/">
+                    </Link>
+                    <Link className="dropdown-item" to="/book/category/History">
                       History
-                    </a>
-                    <a className="dropdown-item" href="/">
-                      Food & Drink
-                    </a>
+                    </Link>
+                    <Link className="dropdown-item" to="/book/category/Cooking">
+                      Cooking
+                    </Link>
                   </div>
                 </li>
               </ul>

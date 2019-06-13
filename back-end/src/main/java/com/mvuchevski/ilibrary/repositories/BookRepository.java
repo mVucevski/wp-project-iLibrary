@@ -19,6 +19,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     Iterable<Book> findAllByIsbnContainingOrTitleContainingIgnoreCaseOrAuthorNameContainingIgnoreCase(String isbn, String title, String authorName);
 
+    Iterable<Book> findAllByGenre(String genre);
+
 //    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) = LOWER(:lastName)")
 //    public List<User> find(@Param("keyword") String keyword);
 }

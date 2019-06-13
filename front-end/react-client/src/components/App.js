@@ -5,6 +5,7 @@ import "./App.css";
 import "./Stars.css";
 import Home from "./Home/Home";
 import Search from "./Home/Search";
+import AllByGenre from "./Home/AllByGenre";
 import Header from "./Layout/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AddBook from "./Book/AddBook";
@@ -74,6 +75,12 @@ function App() {
               exact
               path="/book/search/:id"
               component={Search}
+            />
+            <SecuredRoute
+              allowedRoles={[roleAdmin, roleUser]}
+              exact
+              path="/book/category/:id"
+              component={AllByGenre}
             />
             <SecuredRoute
               allowedRoles={[roleAdmin]}

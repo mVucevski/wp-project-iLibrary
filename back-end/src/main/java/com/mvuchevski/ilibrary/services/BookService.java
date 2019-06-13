@@ -2,13 +2,27 @@ package com.mvuchevski.ilibrary.services;
 
 import com.mvuchevski.ilibrary.exceptions.BookIsbnException;
 import com.mvuchevski.ilibrary.exceptions.BookNotFoundException;
+import com.mvuchevski.ilibrary.exceptions.ImageUploadException;
 import com.mvuchevski.ilibrary.models.Book;
 import com.mvuchevski.ilibrary.repositories.BookRepository;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.mvuchevski.ilibrary.AppConstants.FILE_PATH_IMG_STORAGE;
 
 @Service
 public class BookService {
@@ -107,6 +121,15 @@ public class BookService {
         }
         return bookRepository.findAllByIsbnContainingOrTitleContainingIgnoreCaseOrAuthorNameContainingIgnoreCase(keyword, keyword, keyword);
     }
+
+    public Iterable<Book> findAllByGenre(String genre){
+        if(genre == null && genre.length() == 0){
+            return new ArrayList<>();
+        }
+
+        return bookRepository.findAllByGenre(genre);
+    }
+
 
 
 }

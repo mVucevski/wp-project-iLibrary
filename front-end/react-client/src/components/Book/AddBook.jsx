@@ -3,6 +3,8 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addBook } from "../../actions/bookActions";
+import axios from "axios";
+import FormData from "form-data";
 
 class AddBook extends Component {
   constructor() {
@@ -18,11 +20,13 @@ class AddBook extends Component {
       language: "",
       publicationDate: new Date().toJSON().slice(0, 10),
       availableCopies: "",
+      imageFile: "",
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeImg = this.onChangeImg.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,16 +36,28 @@ class AddBook extends Component {
   }
 
   onChange(e) {
+    if (e.target.name === "coverUrl") {
+      this.setState({
+        imageFile: e.target.files[0]
+      });
+
+      console.log(e.target.files[0]);
+    }
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onChangeImg(e) {}
+
   onSubmit(e) {
     e.preventDefault();
+
+    this.setState({ errors: {} });
+
     const newBook = {
       title: this.state.title,
       authorName: this.state.authorName,
       isbn: this.state.isbn,
-      coverUrl: this.state.coverUrl,
+      coverUrl: this.state.coverUrl.split("h\\")[1],
       genre: this.state.genre,
       description: this.state.description,
       publicationDate: this.state.publicationDate,
@@ -49,9 +65,31 @@ class AddBook extends Component {
       availableCopies: this.state.availableCopies
     };
 
-    console.log("newbook: ", newBook);
+    const formData = new FormData();
+    formData.append("file", this.state.imageFile);
 
-    this.props.addBook(newBook, this.props.history);
+    const res = axios
+      .post("http://localhost:8080/api/book/uploadImg", formData, {
+        headers: { "content-type": "multipart/form-data" }
+      })
+      .then(response => {
+        console.log("UIMG REPOSNE:", response);
+        console.log("NEW BOOK:", newBook);
+
+        this.props.addBook(newBook, this.props.history);
+      })
+      .catch(error => {
+        if (error.response) {
+          this.setState({
+            errors: {
+              ...this.state.errors,
+              coverUrl: error.response.data.imageFile
+            }
+          });
+        }
+      });
+
+    // this.props.addBook(newBook, this.props.history);
   }
   render() {
     const { errors } = this.state;
@@ -166,7 +204,7 @@ class AddBook extends Component {
 
                   <div className="form-group">
                     <input
-                      type="text"
+                      type="file"
                       className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.coverUrl
                       })}

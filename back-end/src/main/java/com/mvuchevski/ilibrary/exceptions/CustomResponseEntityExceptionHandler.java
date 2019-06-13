@@ -67,5 +67,9 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     }
 
 
-
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleImageUploadException(ImageUploadException ex, WebRequest request){
+        ImageUploadExceptionResponse exceptionResponse = new ImageUploadExceptionResponse(ex.getMessage());
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }

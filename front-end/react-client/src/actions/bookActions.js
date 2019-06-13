@@ -131,3 +131,18 @@ export const searchBooks = keyword => async dispatch => {
     });
   }
 };
+
+export const getBooksByGenre = keyword => async dispatch => {
+  try {
+    const response = await axios.get(`/api/book/category/${keyword}`);
+    dispatch({
+      type: GET_BOOKS,
+      payload: response.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};
