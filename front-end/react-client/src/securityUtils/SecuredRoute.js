@@ -13,7 +13,9 @@ const SecuredRoute = ({ component: Component, security, ...otherProps }) => {
           otherProps.allowedRoles.includes(security.role) === true ? (
             <Component {...props} />
           ) : (
-            <h3>YOU DONT HAVE THE PRIVILEGES FOR THIS PART OF THE SITE</h3>
+            <div className="alert alert-danger text-center" role="alert">
+              <h3>YOU DONT HAVE THE PRIVILEGES FOR THIS PART OF THE SITE</h3>
+            </div>
           )
         ) : (
           <Redirect to="/login" />

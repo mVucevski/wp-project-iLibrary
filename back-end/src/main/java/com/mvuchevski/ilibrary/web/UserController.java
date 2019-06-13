@@ -89,7 +89,7 @@ public class UserController {
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }
 
-    //@PreAuthorize("hasRole('EMPLOYEE')")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/grantMembership/{username}")
     public ResponseEntity<?> getCurrentUser(@PathVariable String username){
         System.out.println("INNN");

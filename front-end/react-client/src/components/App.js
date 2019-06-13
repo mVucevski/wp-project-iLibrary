@@ -23,6 +23,7 @@ import Login from "./UserManagment/Login";
 import SecuredRoute from "../securityUtils/SecuredRoute";
 import starRating from "./Book/StarRating";
 import UserDetails from "./UserManagment/UserDetails";
+import Landing from "./Home/Landing";
 
 const jwtToken = localStorage.jwtToken;
 const userRole = localStorage.userRole;
@@ -59,11 +60,17 @@ function App() {
           <Header />
           <hr className="hrNav" />
           <br />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
 
           <Switch>
+            <SecuredRoute
+              allowedRoles={[roleAdmin, roleUser]}
+              exact
+              path="/home"
+              component={Home}
+            />
             <SecuredRoute
               allowedRoles={[roleAdmin, roleUser]}
               exact
@@ -101,7 +108,12 @@ function App() {
               path="/statusManager"
               component={LoanBook}
             />
-            <Route exact path="/userInfo" component={UserDetails} />
+            <SecuredRoute
+              allowedRoles={[roleAdmin, roleUser]}
+              exact
+              path="/userInfo"
+              component={UserDetails}
+            />
           </Switch>
         </div>
       </Router>

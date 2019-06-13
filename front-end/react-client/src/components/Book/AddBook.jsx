@@ -196,6 +196,9 @@ class AddBook extends Component {
                       <option>Non-Fiction</option>
                       <option>Fiction</option>
                       <option>Cook Book</option>
+                      <option>Fantasy</option>
+                      <option>History</option>
+                      <option>Thriller</option>
                     </select>
                     {errors.genre && (
                       <div className="invalid-feedback">{errors.genre}</div>

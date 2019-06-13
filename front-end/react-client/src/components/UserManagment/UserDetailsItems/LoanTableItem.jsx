@@ -5,12 +5,12 @@ import { dateConverter } from "../../../dateFormatter";
 const LoanTableItem = props => {
   const { item, id } = props;
 
-  let returned = <i class="fas fa-minus-square" />;
+  let returned = <i className="fas fa-minus-square" />;
   let trColor = "table-warning";
 
   if (item.returned_At) {
     trColor = "table-success";
-    returned = <i class="fas fa-check-square" />;
+    returned = <i className="fas fa-check-square" />;
   }
 
   return (

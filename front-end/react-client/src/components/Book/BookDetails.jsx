@@ -66,13 +66,16 @@ class BookDetails extends Component {
 
     let pageContent;
     let checkRes = false;
+    let pageError;
 
     if (errors.isbn) {
       pageContent = <BookDoesntExist error={errors.isbn} />;
-    } else if (errors.availableCopies) {
-      // Tmp, I will fix it
-      pageContent = <BookDoesntExist error={errors.availableCopies} />;
-    } else {
+    } //else if (errors.availableCopies) {
+    // Tmp, I will fix it
+    // pageContent = <BookDoesntExist error={errors.availableCopies} />;
+    //pageError = <BookDoesntExist error={errors.availableCopies} />;
+    //}
+    else {
       let employeeButtons = (
         <div className="pt-2">
           <Link
@@ -104,6 +107,9 @@ class BookDetails extends Component {
 
       pageContent = (
         <div>
+          {errors.availableCopies && (
+            <BookDoesntExist error={errors.availableCopies} />
+          )}
           <h4 style={{ fontWeight: "bold" }}>{book.title}</h4>
           <hr />
           <dt />

@@ -34,7 +34,7 @@ public class ReservationController {
         return new ResponseEntity<Reservation>(newReservation, HttpStatus.CREATED);
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/all")
     public Iterable<Reservation> getAllReservations(Principal principal){return reservationService.getAllReservations(principal.getName());}
 

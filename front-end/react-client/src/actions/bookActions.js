@@ -118,6 +118,11 @@ export const getReviews = isbn => async dispatch => {
 
 export const searchBooks = keyword => async dispatch => {
   try {
+    if (keyword === undefined || keyword === "") {
+      keyword = " ";
+    }
+    console.log("SEARC:", keyword);
+
     const response = await axios.get(`/api/book/search/${keyword}`);
 
     dispatch({

@@ -7,6 +7,7 @@ import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -20,6 +21,7 @@ public class LoanController {
     @Autowired
     private LoanService loanService;
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/{book_isbn}/{username}")
     public ResponseEntity<?> createNewLoan(@PathVariable String book_isbn, @PathVariable String username){
         Loan newLoan = loanService.createNewLoan(book_isbn, username);
@@ -36,6 +38,7 @@ public class LoanController {
         return loanService.findAllByBook(book_isbn);
     }
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @DeleteMapping("/{book_isbn}/{username}")
     public ResponseEntity<?> returnBook(@PathVariable String book_isbn, @PathVariable String username){
         loanService.returnLoanedBook(book_isbn, username);

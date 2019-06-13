@@ -19,13 +19,13 @@ class Login extends Component {
 
   componentDidMount() {
     if (this.props.security.validToken) {
-      this.props.history.push("/");
+      this.props.history.push("/home");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.security.validToken) {
-      this.props.history.push("/");
+      this.props.history.push("/home");
     }
 
     if (nextProps.errors) {

@@ -8,7 +8,7 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      search: ""
+      search: " "
     };
 
     this.onChange = this.onChange.bind(this);
@@ -38,7 +38,7 @@ class Header extends Component {
                 />
               </div>
               <div className="col-md-2">
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/home" style={{ textDecoration: "none" }}>
                   <h2 className="Toptitle">
                     i<strong>Library</strong>
                   </h2>
