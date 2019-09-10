@@ -11,8 +11,13 @@ const BookStatusItem = props => {
 
   if (item.due_date) {
     type = "Loan";
-    trColor = "table-danger";
-    endDate = item.due_date;
+    if (item.returned_At) {
+      trColor = "table-success";
+      endDate = item.returned_At;
+    } else {
+      trColor = "table-danger";
+      endDate = item.due_date;
+    }
   }
 
   return (
